@@ -20,7 +20,38 @@
           <i class="mdi mdi-home menu-icon"></i>
         </a>
       </li>
-      @can('slider-list')
+      <li class="nav-item">
+        <a href="{{route('seat.index')}}" class="nav-link ">
+          <span class="menu-title">Seats</span>
+          <i class="mdi mdi-file-image menu-icon"></i>
+        </a>
+      </li>   
+      <li class="nav-item">
+        <a href="{{route('payment.index')}}" class="nav-link ">
+          <span class="menu-title">Payment</span>
+          <i class="mdi mdi-currency-usd menu-icon"></i>
+        </a>
+      </li>   
+      <li class="nav-item">
+        <a href="{{route('sale.index')}}" class="nav-link ">
+          <span class="menu-title">Sales</span>
+          <i class="mdi mdi-cash-multiple menu-icon"></i>
+        </a>
+      </li>   
+      <li class="nav-item">
+        <a href="{{route('member.index')}}" class="nav-link ">
+          <span class="menu-title">Member</span>
+          <i class="mdi mdi-account-group-outline menu-icon"></i>
+        </a>
+      </li>   
+      <li class="nav-item">
+        <a href="{{route('verification.index')}}" class="nav-link ">
+          <span class="menu-title">Payment Verification</span>
+          <i class="mdi mdi-account-group-outline menu-icon"></i>
+        </a>
+      </li>   
+  
+      {{-- @can('slider-list')
         <li class="nav-item">
           <a href="{{route('slider.index')}}" class="nav-link ">
             <span class="menu-title">Slider</span>
@@ -59,7 +90,7 @@
           </div>
         </li>
       @endcan
-     
+      
       <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#settings" aria-expanded="false" aria-controls="ui-basic">
           <span class="menu-title">Pengaturan</span>
@@ -79,10 +110,10 @@
             @endcan
           </ul>
         </div>
-      </li>
+      </li> --}}
       <li class="nav-item">
         <a href="#" class="nav-link ">
-          <span class="menu-title">Keluar</span>
+          <span class="menu-title">Log Out</span>
           <i class="mdi mdi-logout-variant
           menu-icon"></i>
         </a>
