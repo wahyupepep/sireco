@@ -21,9 +21,15 @@
         </a>
       </li>
       <li class="nav-item">
+        <a href="{{route('fdseat.index')}}" class="nav-link ">
+          <span class="menu-title">Seats</span>
+          <i class="mdi mdi-seat menu-icon"></i>
+        </a>
+      </li>   
+      <li class="nav-item">
         <a href="{{route('seat.index')}}" class="nav-link ">
           <span class="menu-title">Seats</span>
-          <i class="mdi mdi-file-image menu-icon"></i>
+          <i class="mdi mdi-seat menu-icon"></i>
         </a>
       </li>   
       <li class="nav-item">
@@ -47,9 +53,26 @@
       <li class="nav-item">
         <a href="{{route('verification.index')}}" class="nav-link ">
           <span class="menu-title">Payment Verification</span>
-          <i class="mdi mdi-account-group-outline menu-icon"></i>
+          <i class="mdi mdi-credit-card menu-icon"></i>
         </a>
       </li>   
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" href="#settings" aria-expanded="false" aria-controls="ui-basic">
+          <span class="menu-title">Setting</span>
+          <i class="menu-arrow"></i>
+          <i class="mdi mdi-settings menu-icon"></i>
+        </a>
+        <div class="collapse" id="settings" style="">
+          <ul class="nav flex-column sub-menu">
+            
+              <li class="nav-item"> <a class="nav-link" href="{{route('setting.profile')}}">Profil</a></li>
+            
+            
+              <li class="nav-item"> <a class="nav-link" href="{{route('setting.password')}}">Ganti Password</a></li>
+            
+          </ul>
+        </div>
+      </li>
   
       {{-- @can('slider-list')
         <li class="nav-item">
@@ -90,8 +113,8 @@
           </div>
         </li>
       @endcan
-      
-      <li class="nav-item">
+       --}}
+      {{-- <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#settings" aria-expanded="false" aria-controls="ui-basic">
           <span class="menu-title">Pengaturan</span>
           <i class="menu-arrow"></i>

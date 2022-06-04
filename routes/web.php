@@ -2,7 +2,7 @@
 
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{BannerController, HomeController, CategoryController, MenuController, PartnerController, RoleController, SettingController, SliderController, UserController, SeatController, PaymentController, SaleController, MemberController, VerificationController};
+use App\Http\Controllers\{BannerController, HomeController, CategoryController, MenuController, PartnerController, RoleController, SettingController, SliderController, UserController, SeatController, PaymentController, SaleController, MemberController, VerificationController, FdseatController};
 use App\Http\Controllers\Auth\LoginController;
 
 /*
@@ -44,6 +44,9 @@ Route::group([
         Route::post('delete/image', [CategoryController::class, 'deleteImage'])->name('delete-image');
         Route::post('delete', [CategoryController::class, 'delete'])->name('delete');
     });
+    Route::group(['prefix' => 'fdseat', 'as' => 'fdseat.'], function () {
+            Route::get('/', [FdseatController::class, 'index'])->name('index');
+    });
     Route::group(['prefix' => 'seat', 'as' => 'seat.'], function () {
             Route::get('/', [SeatController::class, 'index'])->name('index');
     });
@@ -59,7 +62,10 @@ Route::group([
     Route::group(['prefix' => 'verification', 'as' => 'verification.'], function () {
             Route::get('/', [VerificationController::class, 'index'])->name('index');
     });
-   
+    Route::group(['prefix' => 'setting', 'as' => 'setting.'], function () {
+            Route::get('profile', [SettingController::class, 'profile'])->name('profile');
+            Route::get('password', [SettingController::class, 'password'])->name('password');
+    });
     // Route::group(['prefix' => 'menu', 'as' => 'menu.'], function () {
     //     Route::get('/', [MenuController::class, 'index'])->name('index');
     //     Route::get('add', [MenuController::class, 'add'])->name('add');
