@@ -28,10 +28,10 @@
               <div class="col-lg-5 mx-auto">
                 <div class="auth-form-light text-left p-5">
                   <div class="brand-logo">
-                    <img src="../../assets/images/logo.svg" class="d-block mx-auto">
+                    <img src="{{ asset('assets/images/hetero.png') }}" class="d-block mx-auto">
                   </div>
                   <div class="text-center">
-                    <h4>Halo! Untuk Mengatur Konten Kamu</h4>
+                    <h4>Hai! Untuk Reservasi Kursi</h4>
                     <h6 class="font-weight-light">Silahkan login terlebih dahulu.</h6>
                   </div>
                  
