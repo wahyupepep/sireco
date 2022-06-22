@@ -15,7 +15,7 @@
           </ul>
         </nav>
       </div>
-      <div class="row">
+      {{-- <div class="row">
         <div class="col-md-4 stretch-card grid-margin">
           <div class="card bg-red card-img-holder text-white">
             <div class="card-body">
@@ -35,8 +35,8 @@
               <h2 class="mb-5">{{$menus}}</h2>
             </div>
           </div>
-        </div>
-        @can('user-list')
+        </div> --}}
+        {{-- @can('user-list') --}}
         <div class="col-md-4 stretch-card grid-margin">
           <div class="card bg-red card-img-holder text-white">
             <div class="card-body">
@@ -47,7 +47,7 @@
             </div>
           </div>
         </div>
-        @endcan
+        {{-- @endcan --}}
        
       </div>
 @endsection
