@@ -2,7 +2,7 @@
 
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{BannerController, HomeController, CategoryController, MenuController, PartnerController, RoleController, SettingController, SliderController, UserController, SeatController, PaymentController, SaleController, MemberController, VerificationController, FdseatController, PaymentMethodController};
+use App\Http\Controllers\{HomeController, RoleController, SettingController, UserController, SeatController, PaymentController, SaleController, MemberController, VerificationController, FdseatController, PaymentMethodController, RoomController};
 use App\Http\Controllers\Auth\LoginController;
 
 /*
@@ -75,6 +75,14 @@ Route::group([
                         Route::get('/edit/{id}', [PaymentMethodController::class, 'edit'])->name('edit');
                         Route::put('/update/{id}', [PaymentMethodController::class, 'update'])->name('update');
                         Route::delete('/delete', [PaymentMethodController::class, 'delete'])->name('delete');
+                });
+                Route::group(['prefix' => 'room', 'as' => 'room.'], function () {
+                        Route::get('/', [RoomController::class, 'index'])->name('index');
+                        Route::get('/add', [RoomController::class, 'add'])->name('add');
+                        Route::post('/store', [RoomController::class, 'store'])->name('store');
+                        Route::get('/edit/{id}', [RoomController::class, 'edit'])->name('edit');
+                        Route::put('/update/{id}', [RoomController::class, 'update'])->name('update');
+                        Route::delete('/delete', [RoomController::class, 'delete'])->name('delete');
                 });
         });
         Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
