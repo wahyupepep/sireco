@@ -54,12 +54,12 @@ class PaymentMethodController extends Controller
             DB::beginTransaction();
             $validator = Validator::make($request->all(), [
                 'name' => 'required|string',
-                'account_number' => 'required|string',
+                'account_number' => 'required|numeric',
                 'account_name' => 'required|string'
             ]);
 
             if ($validator->fails()) {
-                return redirect()->route('master.payment_method.index')
+                return redirect()->route('master.payment_method.add')
                     ->withErrors($validator)
                     ->withInput();
             }
@@ -108,12 +108,12 @@ class PaymentMethodController extends Controller
 
             $validator = Validator::make($request->all(), [
                 'name' => 'required|string',
-                'account_number' => 'required|string',
+                'account_number' => 'required|numeric',
                 'account_name' => 'required|string'
             ]);
 
             if ($validator->fails()) {
-                return redirect()->route('master.payment_method.index')
+                return redirect()->route('master.payment_method.edit', ['id' => $id])
                     ->withErrors($validator)
                     ->withInput();
             }
