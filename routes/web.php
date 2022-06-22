@@ -2,7 +2,7 @@
 
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{HomeController, RoleController, SettingController, UserController, SeatController, PaymentController, SaleController, MemberController, VerificationController, FdseatController, PaymentMethodController, RoomController};
+use App\Http\Controllers\{CategoryMemberController, HomeController, RoleController, SettingController, UserController, SeatController, PaymentController, SaleController, MemberController, VerificationController, FdseatController, PaymentMethodController, RoomController};
 use App\Http\Controllers\Auth\LoginController;
 
 /*
@@ -83,6 +83,15 @@ Route::group([
                         Route::get('/edit/{id}', [RoomController::class, 'edit'])->name('edit');
                         Route::put('/update/{id}', [RoomController::class, 'update'])->name('update');
                         Route::delete('/delete', [RoomController::class, 'delete'])->name('delete');
+                });
+
+                Route::group(['prefix' => 'category_member', 'as' => 'category_member.'], function () {
+                        Route::get('/', [CategoryMemberController::class, 'index'])->name('index');
+                        Route::get('/add', [CategoryMemberController::class, 'add'])->name('add');
+                        Route::post('/store', [CategoryMemberController::class, 'store'])->name('store');
+                        Route::get('/edit/{id}', [CategoryMemberController::class, 'edit'])->name('edit');
+                        Route::put('/update/{id}', [CategoryMemberController::class, 'update'])->name('update');
+                        Route::delete('/delete', [CategoryMemberController::class, 'delete'])->name('delete');
                 });
         });
         Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
