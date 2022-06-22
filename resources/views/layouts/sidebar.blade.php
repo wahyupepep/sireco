@@ -73,67 +73,26 @@
           </ul>
         </div>
       </li>
-  
-      {{-- @can('slider-list')
-        <li class="nav-item">
-          <a href="{{route('slider.index')}}" class="nav-link ">
-            <span class="menu-title">Slider</span>
-            <i class="mdi mdi-file-image menu-icon"></i>
-          </a>
-        </li>
-      @endcan
-      @can('banner-list')
-        <li class="nav-item">
-          <a href="{{route('banner.index')}}" class="nav-link ">
-            <span class="menu-title">Banner</span>
-            <i class="mdi mdi-view-agenda menu-icon"></i>
-          </a>
-        </li>
-      @endcan
-      @can('partner-list')
-        <li class="nav-item">
-          <a href="{{route('partner.index')}}" class="nav-link ">
-            <span class="menu-title">Mitra</span>
-            <i class="mdi mdi-account-multiple menu-icon"></i>
-          </a>
-        </li>
-      @endcan
-      @can('menu-list')
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-            <span class="menu-title">Menu</span>
-            <i class="menu-arrow"></i>
-            <i class="mdi mdi-format-list-bulleted-type menu-icon"></i>
-          </a>
-          <div class="collapse" id="ui-basic" style="">
-            <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="{{route('category.index')}}">Kategori</a></li>
-              <li class="nav-item"> <a class="nav-link" href="{{route('menu.index')}}">List</a></li>
-            </ul>
-          </div>
-        </li>
-      @endcan
-       --}}
-      {{-- <li class="nav-item">
-        <a class="nav-link" data-toggle="collapse" href="#settings" aria-expanded="false" aria-controls="ui-basic">
-          <span class="menu-title">Pengaturan</span>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" href="#master" aria-expanded="false" aria-controls="ui-basic">
+          <span class="menu-title">Master</span>
           <i class="menu-arrow"></i>
           <i class="mdi mdi-settings menu-icon"></i>
         </a>
-        <div class="collapse" id="settings" style="">
+        <div class="collapse" id="master" style="">
           <ul class="nav flex-column sub-menu">
-            @can('user-list')   
-              <li class="nav-item"> <a class="nav-link" href="{{route('user.index')}}">Pengguna</a></li>
-            @endcan
-            @can('setting-general-list')  
-              <li class="nav-item"> <a class="nav-link" href="{{route('setting.general.index')}}">Umum</a></li>
-            @endcan
-            @can('role-list')
-              <li class="nav-item"> <a class="nav-link" href="{{route('role.index')}}">Hak Akses</a></li>
-            @endcan
+            
+              <li class="nav-item"> <a class="nav-link" href="{{route('master.payment_method.index')}}">Payment Method</a></li>
+            
+            
+              <li class="nav-item"> <a class="nav-link" href="{{route('setting.password')}}">Category Member</a></li>
+              <li class="nav-item"> <a class="nav-link" href="{{route('setting.password')}}">Room</a></li>
+            
           </ul>
         </div>
-      </li> --}}
+      </li>
+  
+      
       <li class="nav-item">
         <a href="#" class="nav-link ">
           <span class="menu-title">Log Out</span>

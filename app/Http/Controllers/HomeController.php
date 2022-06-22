@@ -24,9 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $categories = Category::count();
-        $menus = Menu::count();
         $users = User::count();
-        return view('home', compact('categories', 'menus', 'users'));
+        return view('home', compact('users'));
     }
 }
