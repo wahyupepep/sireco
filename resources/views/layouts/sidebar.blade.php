@@ -83,10 +83,8 @@
           <ul class="nav flex-column sub-menu">
             
               <li class="nav-item"> <a class="nav-link" href="{{route('master.payment_method.index')}}">Payment Method</a></li>
-            
-            
               <li class="nav-item"> <a class="nav-link" href="{{route('setting.password')}}">Category Member</a></li>
-              <li class="nav-item"> <a class="nav-link" href="{{route('setting.password')}}">Room</a></li>
+              <li class="nav-item"> <a class="nav-link" href="{{route('master.room.index')}}">Room</a></li>
             
           </ul>
         </div>

@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PaymentMethod;
+use App\Models\Room;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Crypt;
 use DataTables;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
-class PaymentMethodController extends Controller
+class RoomController extends Controller
 {
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = PaymentMethod::all();
+            $data = Room::all();
 
             return DataTables::of($data)
 
@@ -31,8 +31,8 @@ class PaymentMethodController extends Controller
                     // } else {
                     //     return '<button class="btn btn-gradient-info btn-sm ml-1" title="Silahkan hubungi super admin untuk edit dan delete"><i class="mdi mdi-lock"></i></button>';
                     // }
-                    $btn = '<a href="' . route('master.payment_method.edit', Crypt::encryptString($row->id)) . '" class="edit-brand btn btn-gradient-warning btn-sm"><i class="mdi mdi-lead-pencil"></i></a>';
-                    $btn .= '<button class="delete-payment-method btn btn-gradient-danger btn-sm ml-1" data-id=' .  Crypt::encryptString($row->id) . ' data-name="' . $row->name . '"><i class="mdi mdi-delete"></i></button>';
+                    $btn = '<a href="' . route('master.room.edit', Crypt::encryptString($row->id)) . '" class="edit-brand btn btn-gradient-warning btn-sm"><i class="mdi mdi-lead-pencil"></i></a>';
+                    $btn .= '<button class="delete-room btn btn-gradient-danger btn-sm ml-1" data-id=' .  Crypt::encryptString($row->id) . ' data-name="' . $row->name . '"><i class="mdi mdi-delete"></i></button>';
                     return $btn;
                 })
 
@@ -40,12 +40,12 @@ class PaymentMethodController extends Controller
 
                 ->make(true);
         }
-        return view('content-dashboard.masters.payment_methods.index');
+        return view('content-dashboard.masters.rooms.index');
     }
 
     public function add()
     {
-        return view('content-dashboard.masters.payment_methods.add');
+        return view('content-dashboard.masters.rooms.add');
     }
 
     public function store(Request $request)
@@ -54,50 +54,46 @@ class PaymentMethodController extends Controller
             DB::beginTransaction();
             $validator = Validator::make($request->all(), [
                 'name' => 'required|string',
-                'account_number' => 'required|numeric',
-                'account_name' => 'required|string'
             ]);
 
             if ($validator->fails()) {
-                return redirect()->route('master.payment_method.add')
+                return redirect()->route('master.room.add')
                     ->withErrors($validator)
                     ->withInput();
             }
+            $data_room = Room::where('name', 'like', "%{$request->name}%")->exists();
 
-            $data_payment_method = PaymentMethod::where('name', 'like', "%{$request->name}%")->exists();
 
-            if ($data_payment_method) {
-                return redirect()->route('master.payment_method.index')->withErrors('Payment method already exists')->withInput();
+            if ($data_room) {
+                return redirect()->route('master.room.add')->withErrors('Room already exists')->withInput();
             }
 
-            $store_payment_method = PaymentMethod::create([
+            $store_room = Room::create([
                 'name' => $request->name,
-                'account_number' => $request->account_number,
-                'account_name' => $request->account_name
             ]);
 
-            if ($store_payment_method) {
+            if ($store_room) {
                 DB::commit();
-                return redirect()->route('master.payment_method.index')->with('status', 'Successfully add payment methods');
+                return redirect()->route('master.room.index')->with('status', 'Successfully add room');
             }
         } catch (\Throwable $th) {
             DB::rollBack();
-            return redirect()->route('master.payment_method.add')->withErrors($th->getMessage() . ' on the line ' . $th->getLine())->withInput();
+            return redirect()->route('master.room.add')->withErrors($th->getMessage() . ' on the line ' . $th->getLine())->withInput();
         }
     }
 
     public function edit($id)
     {
         try {
-            $payment_method = PaymentMethod::find(Crypt::decryptString($id), ['id', 'name', 'account_name', 'account_number']);
+            $room = Room::find(Crypt::decryptString($id), ['id', 'name']);
 
-            if (empty($payment_method)) {
-                return redirect()->route('master.payment_method.edit', ['id' => $id])->withErrors('Data Payment Method Not Found')->withInput();
+            if (empty($room)) {
+                return redirect()->route('master.room.edit', ['id' => $id])->withErrors('Data room Not Found')->withInput();
             }
 
-            return view('content-dashboard.masters.payment_methods.edit', compact('payment_method', 'id'));
+            return view('content-dashboard.masters.rooms.edit', compact('room', 'id'));
         } catch (\Throwable $th) {
-            return redirect()->route('master.payment_method.edit', ['id' => $id])->withErrors($th->getMessage() . ' on the line ' . $th->getLine())->withInput();
+            return redirect()->route('master.room.edit', ['id' => $id])->withErrors($th->getMessage() . ' on the line ' . $th->getLine())->withInput();
         }
     }
 
@@ -108,33 +104,29 @@ class PaymentMethodController extends Controller
 
             $validator = Validator::make($request->all(), [
                 'name' => 'required|string',
-                'account_number' => 'required|numeric',
-                'account_name' => 'required|string'
             ]);
 
             if ($validator->fails()) {
-                return redirect()->route('master.payment_method.edit', ['id' => $id])
+                return redirect()->route('master.room.edit', ['id' => $id])
                     ->withErrors($validator)
                     ->withInput();
             }
 
-            $payment_method = PaymentMethod::find(Crypt::decryptString($id));
+            $room = Room::find(Crypt::decryptString($id));
 
-            if (empty($payment_method)) {
-                return redirect()->route('master.payment_method.index')->withErrors('Data Payment Method Not Found')->withInput();
+            if (empty($room)) {
+                return redirect()->route('master.room.edit', ['id' => $id])->withErrors('Data Room Not Found')->withInput();
             }
 
-            $payment_method->update([
+            $room->update([
                 'name' => $request->name,
-                'account_number' => $request->account_number,
-                'account_name' => $request->account_name
             ]);
 
             DB::commit();
 
-            return redirect()->route('master.payment_method.index')->with('status', 'Successfully update payment methods');
+            return redirect()->route('master.room.index')->with('status', 'Successfully update room');
         } catch (\Throwable $th) {
-            return redirect()->route('master.payment_method.edit', ['id' => $id])->withErrors($th->getMessage() . ' on the line ' . $th->getLine())->withInput();
+            return redirect()->route('master.room.edit', ['id' => $id])->withErrors($th->getMessage() . ' on the line ' . $th->getLine())->withInput();
         }
     }
 
@@ -143,9 +135,9 @@ class PaymentMethodController extends Controller
         try {
             DB::beginTransaction();
 
-            $payment_method = PaymentMethod::find(Crypt::decryptString($request->id));
+            $room = Room::find(Crypt::decryptString($request->id));
 
-            if (empty($payment_method)) {
+            if (empty($room)) {
                 return response()->json([
                     'code' => 404,
                     'success' => false,
@@ -153,14 +145,14 @@ class PaymentMethodController extends Controller
                 ]);
             }
 
-            $payment_method->delete();
+            $room->delete();
 
             DB::commit();
 
             return response()->json([
                 'code' => 200,
                 'success' => true,
-                'message' => 'Successfully delete data payment method'
+                'message' => 'Successfully delete data room'
             ]);
         } catch (\Throwable $th) {
             DB::rollBack();
