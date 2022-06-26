@@ -49,6 +49,10 @@ Route::group([
         });
         Route::group(['prefix' => 'seat', 'as' => 'seat.'], function () {
                 Route::get('/', [SeatController::class, 'index'])->name('index');
+                Route::get('/order-summary/{id}', [SeatController::class, 'orderSummary'])->name('order-summary');
+                Route::get('/list-order', [SeatController::class, 'listOrder'])->name('list-order');
+                Route::get('/detail-order/{id}', [SeatController::class, 'detailOrder'])->name('detail-order');
+                Route::get('/payment/{id}', [SeatController::class, 'paymentOrder'])->name('payment-order');
         });
         Route::group(['prefix' => 'payment', 'as' => 'payment.'], function () {
                 Route::get('/', [PaymentController::class, 'index'])->name('index');

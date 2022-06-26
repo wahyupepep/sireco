@@ -19,6 +19,27 @@ class SeatController extends Controller
         return view('content-dashboard.seats.index');
     }
 
+    public function orderSummary($id)
+    {
+
+        return view('content-dashboard.seats.order_summary');
+    }
+
+    public function listOrder()
+    {
+        return view('content-dashboard.seats.list_order');
+    }
+
+    public function detailOrder($id)
+    {
+        return view('content-dashboard.seats.detail_order');
+    }
+
+    public function paymentOrder($id)
+    {
+        return view('content-dashboard.seats.payment_order');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
