@@ -9,12 +9,8 @@
             <div class="container">
                 <div class="row mb-4">
                     <div class="col-md-3">
-                        <label for="date_reservation_start">Date Reservation Start</label>
+                        <label for="date_reservation_start">Date Reservation</label>
                         <input type="date" name="date_reservation_start" id="date_reservation_start" class="form-control mt-2 mb-3">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="date_reservation_end">Date Reservation End</label>
-                        <input type="date" name="date_reservation_end" id="date_reservation_end" class="form-control mt-2 mb-3">
                     </div>
                 </div>
                 <div class="row mb-4">
