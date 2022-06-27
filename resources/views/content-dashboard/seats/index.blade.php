@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="{{asset('assets/css/reservations.css')}}">
 @endsection
 @section('content')
-    @include('layouts.overview',['text' => 'Seats', 'icon' => 'mdi mdi-view-agenda'])
+    @include('layouts.overview',['text' => 'Reservation', 'icon' => 'mdi mdi-view-agenda'])
     <div class="container">
         <div class="row">
             <div class="container">

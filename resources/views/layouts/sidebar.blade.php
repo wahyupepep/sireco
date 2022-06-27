@@ -28,7 +28,7 @@
       </li>   
       <li class="nav-item">
         <a href="{{route('seat.index')}}" class="nav-link ">
-          <span class="menu-title">Seats</span>
+          <span class="menu-title">Reservation</span>
           <i class="mdi mdi-seat menu-icon"></i>
         </a>
       </li>   

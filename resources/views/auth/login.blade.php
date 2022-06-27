@@ -17,10 +17,13 @@
           background: #EF5350 !important;
           color: white
         }
+        .content-wrapper{
+          background: unset !important;
+        }
     </style>
 </head>
-<body>
-    
+<body style="background-image: url({{ asset('assets/images/maneka.jpg') }}); background-repeat: no-repeat; background-size: cover; "> 
+
     <div class="container-scroller">
         <div class="container-fluid page-body-wrapper full-page-wrapper">
           <div class="content-wrapper d-flex align-items-center auth">
