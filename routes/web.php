@@ -68,6 +68,7 @@ Route::group([
         Route::group(['prefix' => 'setting', 'as' => 'setting.'], function () {
                 Route::get('profile', [SettingController::class, 'profile'])->name('profile');
                 Route::get('password', [SettingController::class, 'password'])->name('password');
+                Route::post('change/password', [SettingController::class, 'changePassword'])->name('changepassword');
         });
 
         Route::group(['prefix' => 'master', 'as' => 'master.'], function () {
