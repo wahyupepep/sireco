@@ -50,7 +50,7 @@
                         <div class="terms-condtions">
                             <h6 class="font-weight-bold ml-2">Terms on conditions</h6>
                             <ul>
-                                <li>Complete the payment before 2 hours from the time of order. If it exceeds that time the order will be automatically canceled.</li>
+                                <li>complete payment in 30 minutes. If it exceeds that time the order will be automatically canceled.</li>
                                 <li>An invoice will be issued once the payment has been successfully confirmed and the order cannot be changed afterward.</li>
                                 <li>Payment settlement must be completed according to the bill.</li>
                             </ul>

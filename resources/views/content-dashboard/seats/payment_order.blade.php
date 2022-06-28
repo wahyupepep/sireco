@@ -45,12 +45,9 @@
                         <div class="terms-condtions">
                             <h6 class="font-weight-bold ml-2">Terms on conditions</h6>
                             <ul>
-                                <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-                                <li>Donec eu tortor a urna scelerisque dapibus.</li>
-                                <li>Sed vestibulum turpis efficitur nisl maximus, vel volutpat sapien tincidunt</li>
-                                <li>Proin eleifend justo vel libero posuere, blandit tincidunt lorem consequat</li>
-                                <li>In scelerisque est a imperdiet auctor</li>
-                                <li>Curabitur condimentum nisl quis erat lacinia, et eleifend ex aliquam.</li>
+                                <li>complete payment in 30 minutes. If it exceeds that time the order will be automatically canceled.</li>
+                                <li>An invoice will be issued once the payment has been successfully confirmed and the order cannot be changed afterward.</li>
+                                <li>Payment settlement must be completed according to the bill.</li>
                             </ul>
                         </div>
 
