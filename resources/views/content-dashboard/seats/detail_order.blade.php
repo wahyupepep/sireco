@@ -41,7 +41,7 @@
                                 <td>-</td>
                               </tr>
                               <tr>
-                                <td class="font-weight-bold">Chair</td>
+                                <td class="font-weight-bold">Seats</td>
                                 <td>:</td>
                                 <td>
                                     <h6 style="color: #aa1c91" class="font-weight-bold"> A1 </h6>

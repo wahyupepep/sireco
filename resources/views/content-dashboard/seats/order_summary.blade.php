@@ -21,7 +21,7 @@
                                 <td>27 Juni 2022</td>
                               </tr>
                               <tr>
-                                <td class="font-weight-bold">Seat Code</td>
+                                <td class="font-weight-bold">Seats</td>
                                 <td>:</td>
                                 <td>A1</td>
                               </tr>
