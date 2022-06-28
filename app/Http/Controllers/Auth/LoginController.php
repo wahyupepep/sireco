@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
@@ -35,6 +36,21 @@ class LoginController extends Controller
     {
         $akun    = $request->input("email");
         $password = $request->input("password");
+
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|string',
+            'password' => 'required|string',
+        ], [
+            'email.required' => 'Email is required',
+            'email.string' => 'Email must be word',
+            'password.required' => 'Password is required',
+            'password.string' => 'Password must be word',
+
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('manage.login')->with('message', ['status' => 'danger', 'desc' => $validator->errors()->first()]);
+        }
 
         $user = User::where('name', $akun)->orWhere('email', $akun)->first();
         if ($user) {

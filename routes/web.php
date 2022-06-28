@@ -2,7 +2,7 @@
 
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{CategoryMemberController, HomeController, RoleController, SettingController, UserController, SeatController, PaymentController, SaleController, MemberController, VerificationController, FdseatController, PaymentMethodController, RoomController, DiscountController};
+use App\Http\Controllers\{CategoryMemberController, HomeController, RoleController, SettingController, UserController, SeatController, PaymentController, SaleController, MemberController, VerificationController, FdseatController, PaymentMethodController, RoomController, DiscountController, RegistrationController};
 use App\Http\Controllers\Auth\LoginController;
 
 /*
@@ -21,8 +21,9 @@ use App\Http\Controllers\Auth\LoginController;
 // })->name('login');
 Route::get('/', [LoginController::class, 'index'])->name('manage.login');
 Route::post('/manage/login', [LoginController::class, 'checkLogin'])->name('manage.checklogin');
-
-
+Route::get('manage/registration', [RegistrationController::class, 'registration'])->name('manage.registration');
+Route::post('manage/registration', [RegistrationController::class, 'inputRegistration'])->name('manage.inputregistration');
+Route::get('verified/{id}', [RegistrationController::class, 'emailVerified'])->name('email.verified');
 // Auth::routes();
 
 Route::group([
@@ -54,7 +55,7 @@ Route::group([
                 Route::get('/detail-order/{id}', [SeatController::class, 'detailOrder'])->name('detail-order');
                 Route::get('/payment/{id}', [SeatController::class, 'paymentOrder'])->name('payment-order');
         });
-       
+
         Route::group(['prefix' => 'sale', 'as' => 'sale.'], function () {
                 Route::get('/', [SaleController::class, 'index'])->name('index');
         });
