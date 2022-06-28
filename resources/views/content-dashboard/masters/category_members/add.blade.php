@@ -38,10 +38,10 @@
                            <label for="price">Price <sup style="color:red">*</sup></label>
                            <input type="text" name="price" id="price" class="form-control" value="{{old('price')}}" placeholder="Ex: 120000" required>
                         </div>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                            <label for="discount">Discount</label>
                            <input type="number" name="discount" id="discount" class="form-control" value="{{old('discount')}}" placeholder="Ex: John Doe" max="100">
-                        </div>
+                        </div> --}}
                         <div class="mb-3">
                           <span class="text-muted" style="font-size:11px">note: <sup style="color:red">*</sup> (required)</span>
                         </div>

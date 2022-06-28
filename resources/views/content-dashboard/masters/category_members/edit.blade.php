@@ -43,10 +43,10 @@
                           <label for="price">Price <sup style="color:red">*</sup></label>
                           <input type="text" name="price" id="price" class="form-control" value="" placeholder="Ex: 120000" required>
                        </div>
-                       <div class="form-group">
+                       {{-- <div class="form-group">
                           <label for="discount">Discount</label>
                           <input type="number" name="discount" id="discount" class="form-control" value="{{$category_member->discount}}" placeholder="Ex: John Doe" max="100">
-                       </div>
+                       </div> --}}
                         <a href="{{route('master.payment_method.index')}}" class="btn bg-blue text-white">Back</a>
                         <button type="submit" class="btn mr-2 bg-green text-white d-none" id="btn-save">Submit</button>
                         <button type="button" class="btn mr-2 btn-warning text-white" id="btn-edit">Edit</button>

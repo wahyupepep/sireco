@@ -18,7 +18,7 @@
                             <th>No</th> 
                             <th>Type Member</th>
                             <th>Price</th>
-                            <th>Discount</th>
+                            {{-- <th>Discount</th> --}}
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -45,7 +45,7 @@
                     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                     {data: 'name', name: 'name'},
                     {data: 'num_price', name: 'num_price'},
-                    {data: 'discount', name: 'discount'},
+                    // {data: 'discount', name: 'discount'},
                     {data: 'action', name: 'action', orderable: false, searchable: false},
 
                 ]
