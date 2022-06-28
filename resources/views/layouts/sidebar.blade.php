@@ -71,7 +71,7 @@
         <div class="collapse" id="settings" style="">
           <ul class="nav flex-column sub-menu">
             
-              <li class="nav-item"> <a class="nav-link" href="{{route('setting.profile')}}">Profil</a></li>
+              <li class="nav-item"> <a class="nav-link" href="{{route('setting.profile', ['id' => Crypt::encryptString(Auth::user()->id)])}}">Profil</a></li>
             
             
               <li class="nav-item"> <a class="nav-link" href="{{route('setting.password')}}">Ganti Password</a></li>

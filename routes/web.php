@@ -66,9 +66,10 @@ Route::group([
                 Route::get('/', [VerificationController::class, 'index'])->name('index');
         });
         Route::group(['prefix' => 'setting', 'as' => 'setting.'], function () {
-                Route::get('profile', [SettingController::class, 'profile'])->name('profile');
+                Route::get('profile/{id}', [SettingController::class, 'profile'])->name('profile');
                 Route::get('password', [SettingController::class, 'password'])->name('password');
                 Route::post('change/password', [SettingController::class, 'changePassword'])->name('changepassword');
+                Route::put('update/profile/{id}', [SettingController::class, 'updateProfile'])->name('updateprofile');
         });
 
         Route::group(['prefix' => 'master', 'as' => 'master.'], function () {
