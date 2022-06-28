@@ -24,7 +24,7 @@ class RegistrationController extends Controller
                 'fullname' => 'required|string',
                 'username' => 'required|string',
                 'email' => 'required|string',
-                'password' => 'required|string',
+                'password' => 'required|string|min:8',
             ], [
                 'fullname.required' => 'Fullname is required',
                 'fullname.string' => 'Email must be word',
@@ -34,6 +34,7 @@ class RegistrationController extends Controller
                 'email.string' => 'Email must be word',
                 'password.required' => 'Password is required',
                 'password.string' => 'Password must be word',
+                'password.min' => 'Password recommendation more than 8 character',
 
             ]);
 
