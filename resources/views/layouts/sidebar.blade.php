@@ -85,6 +85,7 @@
               <li class="nav-item"> <a class="nav-link" href="{{route('master.payment_method.index')}}">Payment Method</a></li>
               <li class="nav-item"> <a class="nav-link" href="{{route('master.category_member.index')}}">Category Member</a></li>
               <li class="nav-item"> <a class="nav-link" href="{{route('master.room.index')}}">Room</a></li>
+              <li class="nav-item"> <a class="nav-link" href="{{route('master.discount.index')}}">Discount</a></li>
             
           </ul>
         </div>

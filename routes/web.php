@@ -2,7 +2,7 @@
 
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{CategoryMemberController, HomeController, RoleController, SettingController, UserController, SeatController, PaymentController, SaleController, MemberController, VerificationController, FdseatController, PaymentMethodController, RoomController};
+use App\Http\Controllers\{CategoryMemberController, HomeController, RoleController, SettingController, UserController, SeatController, PaymentController, SaleController, MemberController, VerificationController, FdseatController, PaymentMethodController, RoomController, DiscountController};
 use App\Http\Controllers\Auth\LoginController;
 
 /*
@@ -96,6 +96,15 @@ Route::group([
                         Route::get('/edit/{id}', [CategoryMemberController::class, 'edit'])->name('edit');
                         Route::put('/update/{id}', [CategoryMemberController::class, 'update'])->name('update');
                         Route::delete('/delete', [CategoryMemberController::class, 'delete'])->name('delete');
+                });
+
+                Route::group(['prefix' => 'discount', 'as' => 'discount.'], function () {
+                        Route::get('/', [DiscountController::class, 'index'])->name('index');
+                        Route::get('/add', [DiscountController::class, 'add'])->name('add');
+                        Route::post('/store', [DiscountController::class, 'store'])->name('store');
+                        // Route::get('/edit/{id}', [DiscountController::class, 'edit'])->name('edit');
+                        // Route::put('/update/{id}', [DiscountController::class, 'update'])->name('update');
+                        Route::delete('/delete', [DiscountController::class, 'delete'])->name('delete');
                 });
         });
         Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
