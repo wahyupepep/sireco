@@ -33,11 +33,17 @@
         </a>
       </li>   
       <li class="nav-item">
+        <a href="{{route('order.list-order')}}" class="nav-link ">
+          <span class="menu-title">Orders</span>
+          <i class="mdi mdi-seat menu-icon"></i>
+        </a>
+      </li>   
+      {{-- <li class="nav-item">
         <a href="{{route('payment.index')}}" class="nav-link ">
           <span class="menu-title">Payment</span>
           <i class="mdi mdi-currency-usd menu-icon"></i>
         </a>
-      </li>   
+      </li>    --}}
       <li class="nav-item">
         <a href="{{route('sale.index')}}" class="nav-link ">
           <span class="menu-title">Sales</span>
