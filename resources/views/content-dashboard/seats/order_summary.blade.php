@@ -21,6 +21,11 @@
                                 <td>27 Juni 2022</td>
                               </tr>
                               <tr>
+                                <td class="font-weight-bold">Seat Code</td>
+                                <td>:</td>
+                                <td>A1</td>
+                              </tr>
+                              <tr>
                                 <td class="font-weight-bold">Duration</td>
                                 <td>:</td>
                                 <td>2 Days</td>
@@ -45,17 +50,14 @@
                         <div class="terms-condtions">
                             <h6 class="font-weight-bold ml-2">Terms on conditions</h6>
                             <ul>
-                                <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-                                <li>Donec eu tortor a urna scelerisque dapibus.</li>
-                                <li>Sed vestibulum turpis efficitur nisl maximus, vel volutpat sapien tincidunt</li>
-                                <li>Proin eleifend justo vel libero posuere, blandit tincidunt lorem consequat</li>
-                                <li>In scelerisque est a imperdiet auctor</li>
-                                <li>Curabitur condimentum nisl quis erat lacinia, et eleifend ex aliquam.</li>
+                                <li>Complete the payment before 2 hours from the time of order. If it exceeds that time the order will be automatically canceled.</li>
+                                <li>An invoice will be issued once the payment has been successfully confirmed and the order cannot be changed afterward.</li>
+                                <li>Payment settlement must be completed according to the bill.</li>
                             </ul>
                         </div>
 
                         <div class="payment methods">
-                            <h6 class="payment-methods font-weight-bold">Payment Methods</h6>
+                            <h6 class="payment-methods font-weight-bold ml-2">Payment Methods</h6>
                             <table style="max-width:640px;padding:0px 20px;margin:10px 0px;background-color:#ffffff;font-size:0.9em;width:100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#F2F2F2">
                                 <tbody>
                                
