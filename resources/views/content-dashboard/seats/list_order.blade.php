@@ -12,7 +12,7 @@
 @endsection
 @section('content')
 
-    @include('layouts.overview',['text' => 'List Order', 'icon' => 'mdi mdi-cart-plus'])
+    @include('layouts.overview',['text' => 'Orders', 'icon' => 'mdi mdi-cart-plus'])
     <div class="container">
         <div class="row">
             <div class="col-md-12">

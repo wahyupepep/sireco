@@ -54,9 +54,7 @@ Route::group([
                 Route::get('/detail-order/{id}', [SeatController::class, 'detailOrder'])->name('detail-order');
                 Route::get('/payment/{id}', [SeatController::class, 'paymentOrder'])->name('payment-order');
         });
-        Route::group(['prefix' => 'order', 'as' => 'order.'], function () {
-                Route::get('/', [SeatController::class, 'listOrder'])->name('list-order');
-        });
+       
         Route::group(['prefix' => 'sale', 'as' => 'sale.'], function () {
                 Route::get('/', [SaleController::class, 'index'])->name('index');
         });

@@ -33,7 +33,7 @@
         </a>
       </li>   
       <li class="nav-item">
-        <a href="{{route('order.list-order')}}" class="nav-link ">
+        <a href="{{route('seat.list-order')}}" class="nav-link ">
           <span class="menu-title">Orders</span>
           <i class="mdi mdi-seat menu-icon"></i>
         </a>
