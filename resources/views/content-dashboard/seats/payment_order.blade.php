@@ -80,11 +80,40 @@
             </div>
         </div>
     </div>
+    <div class="modal" id="modal-payment" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Upload Payment</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <input type="file" class="form-control-file" id="payment" name="payment">
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-success btn-save-upload">Upload Payment</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
 @endsection
 @section('script')
     <script>
         $(document).ready(function() {
             $(document).on('click','.btn-confirm-order', function() {
+                window.location.href = "{{route('seat.list-order')}}"
+            })
+
+            $(document).on('click', '.btn-upload-payment', function() {
+                $('#modal-payment').modal('show')
+            })
+
+            $(document).on('click', '.btn-save-upload', function() {
                 window.location.href = "{{route('seat.list-order')}}"
             })
         })
