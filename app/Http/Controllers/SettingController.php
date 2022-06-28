@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -21,9 +22,19 @@ class SettingController extends Controller
         return view('content-dashboard.settings.password');
     }
 
-    public function profile()
+    public function profile($id)
     {
-        return view('content-dashboard.settings.profile');
+        $dec_id = Crypt::decryptString($id);
+
+        $member = User::find($dec_id);
+
+        $ages = User::AGE;
+
+        $hobbies = User::HOBBY;
+
+        $work_types = User::WORK_TYPE;
+
+        return view('content-dashboard.settings.profile', compact('member', 'id', 'ages', 'hobbies', 'work_types'));
     }
 
     public function changePassword(Request $request)
@@ -66,6 +77,72 @@ class SettingController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->route('setting.password')->with('message', ['status' => 'danger', 'desc' => $th->getMessage() . ' on the line ' . $th->getLine()]);
+        }
+    }
+
+    public function updateProfile(Request $request, $id)
+    {
+        try {
+            DB::beginTransaction();
+            $validator = Validator::make($request->all(), [
+                'fullname' => 'required|string',
+                'nik' => 'required|string|max:16',
+                'username' => 'required|string',
+                'email' => 'required|string',
+                'birthdate' => 'required|string',
+                'address' => 'required|string',
+                'work_type' => 'required|numeric',
+                'industry_name' => 'required|string',
+                'hobby' => 'required|numeric',
+                'phone' => 'required|max:12',
+                'age' => 'required|numeric'
+            ]);
+
+            if ($validator->fails()) {
+                return redirect()->route('setting.profile', ['id' => $id])->with('message', ['status' => 'danger', 'desc' => $validator->errors()->first()]);
+            }
+
+            // check phone input is right way or not
+            $pattern = "/^[0-9]{12}+$/";
+
+            if (!preg_match($pattern, $request->phone)) {
+                return redirect()->route('setting.profile', ['id' => $id])->with('message', ['status' => 'danger', 'desc' => 'Format phone not allowed']);
+            }
+
+            $member = User::find(Crypt::decryptString($id));
+
+            if (empty($member)) {
+                return redirect()->route('setting.profile', ['id' => $id])->with('message', ['status' => 'danger', 'desc' => 'Member not found']);
+            }
+
+            $check_email_exists = User::where('id', '!=', Crypt::decryptString($id))
+                ->where('email', $request->email)
+                ->exists();
+
+            if ($check_email_exists) {
+                return redirect()->route('setting.profile', ['id' => $id])->with('message', ['status' => 'danger', 'desc' => 'Email already exists']);
+            }
+
+            $member->update([
+                'fullname' => $request->fullname,
+                'nik' => $request->nik,
+                'name' => $request->username,
+                'email' => $request->email,
+                'birthdate' => date('Y-m-d', strtotime($request->birthdate)),
+                'address' => $request->address,
+                'work_type' => $request->work_type,
+                'industry_name' => $request->industry_name,
+                'hobby' => $request->hobby,
+                'phone' => $request->phone,
+                'classification_age' => $request->age
+            ]);
+
+            DB::commit();
+
+            return redirect()->route('setting.profile', ['id' => $id])->with('message', ['status' => 'success', 'desc' => 'Successfully update profile']);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->route('setting.profile', ['id' => $id])->with('message', ['status' => 'danger', 'desc' => $th->getMessage() . ' on the line ' . $th->getLine()]);
         }
     }
 }
