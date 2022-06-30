@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    @include('layouts.overview',['text' => 'Edit Payment Method', 'icon' => 'mdi mdi-credit-card'])
+    @include('layouts.overview',['text' => 'Edit room', 'icon' => 'mdi mdi-credit-card'])
     <div class="container">
         <div class="row">
             <div class="col-md-12">

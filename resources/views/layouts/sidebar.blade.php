@@ -9,7 +9,7 @@
           </div>
           <div class="nav-profile-text d-flex flex-column">
             <span class="font-weight-bold mb-2">{{Auth::user()->name}}</span>
-            <span class="text-secondary text-small">{{Auth::user()->role == 1 ? 'Super Admin' : 'Admin'}}</span>
+            <span class="text-secondary text-small">{{Auth::user()->role == 1 ? 'Space Manager' : 'Admin'}}</span>
           </div>
           <i class="mdi mdi-bookmark-check color-red nav-profile-badge"></i>
         </a>
@@ -20,13 +20,13 @@
           <i class="mdi mdi-home menu-icon"></i>
         </a>
       </li>
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a href="{{route('fdseat.index')}}" class="nav-link ">
           <span class="menu-title">Seats</span>
           <i class="mdi mdi-seat menu-icon"></i>
         </a>
-      </li>   
-      <li class="nav-item">
+      </li>    --}}
+      {{-- <li class="nav-item">
         <a href="{{route('seat.index')}}" class="nav-link ">
           <span class="menu-title">Reservation</span>
           <i class="mdi mdi-seat menu-icon"></i>
@@ -38,8 +38,8 @@
           <i class="mdi mdi-seat menu-icon"></i>
         </a>
       </li>   
-      {{-- <li class="nav-item">
-        <a href="{{route('payment.index')}}" class="nav-link ">
+      <li class="nav-item"> --}}
+        {{-- <a href="{{route('payment.index')}}" class="nav-link ">
           <span class="menu-title">Payment</span>
           <i class="mdi mdi-currency-usd menu-icon"></i>
         </a>
@@ -62,7 +62,7 @@
           <i class="mdi mdi-credit-card menu-icon"></i>
         </a>
       </li>   
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#settings" aria-expanded="false" aria-controls="ui-basic">
           <span class="menu-title">Setting</span>
           <i class="menu-arrow"></i>
@@ -78,7 +78,7 @@
             
           </ul>
         </div>
-      </li>
+      </li> --}}
       <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#master" aria-expanded="false" aria-controls="ui-basic">
           <span class="menu-title">Master</span>

@@ -29,7 +29,7 @@
         </li>
         <li class="nav-item d-none d-lg-block full-screen-link">
           <a class="nav-link">
-            <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
+            <i class="mdi mdi-bell" id="bell-button"></i>
           </a>
         </li>
        

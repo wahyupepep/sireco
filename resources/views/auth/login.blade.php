@@ -43,7 +43,7 @@
         }
     </style>
 </head>
-<body style="background-image: url({{ asset('assets/images/maneka.jpg') }}); background-repeat: no-repeat; background-size: cover; "> 
+<body style="background-image: url({{ asset('assets/images/MANEKA6.jpg') }}); background-repeat: no-repeat; background-size: cover; "> 
 
     <div class="container-scroller">
         <div class="container-fluid page-body-wrapper full-page-wrapper">

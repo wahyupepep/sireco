@@ -14,7 +14,7 @@
                     </div>
                 </div>
                 <div class="row mb-4">
-                    <div class="col-md-2 door-reservation align-items-center justify-content-center d-flex">
+                    <div class="col-md-1 door-reservation align-items-center justify-content-center d-flex" style="height: 100px; background-color:black">
                         <h3 class="text-white font-weight-bold" style="transform: rotate(90deg)">Door</h2>
                     </div>
                     <div class="col-md-10">
@@ -30,7 +30,7 @@
                                 </div>
                                 
                                 <div class="table-reservation">
-                                    <p class="text-white font-weight-bold mt-3">Table One</p> 
+                                    <p class="text-white font-weight-bold mt-3"></p> 
                                 </div>
                                 
                                 <div class="text-center">
@@ -53,7 +53,7 @@
                                 </div>
                                 
                                 <div class="table-reservation">
-                                    <p class="text-white font-weight-bold mt-3">Table Two</p> 
+                                    <p class="text-white font-weight-bold mt-3"></p> 
                                 </div>
                                 
                                 <div class="text-center">
@@ -79,7 +79,7 @@
                                 </div>
                                 
                                 <div class="table-reservation">
-                                    <p class="text-white font-weight-bold mt-3">Table Three</p> 
+                                    <p class="text-white font-weight-bold mt-3"></p> 
                                 </div>
                                 
                                 <div class="text-center">
@@ -102,7 +102,7 @@
                                 </div>
                                 
                                 <div class="table-reservation">
-                                    <p class="text-white font-weight-bold mt-3">Table Four</p> 
+                                    <p class="text-white font-weight-bold mt-3"></p> 
                                 </div>
                                 
                                 <div class="text-center">
@@ -128,7 +128,7 @@
                                 </div>
                                 
                                 <div class="table-reservation">
-                                    <p class="text-white font-weight-bold mt-3">Table Five</p> 
+                                    <p class="text-white font-weight-bold mt-3"></p> 
                                 </div>
                                 
                                 <div class="text-center">
@@ -151,7 +151,7 @@
                                 </div>
                                 
                                 <div class="table-reservation">
-                                    <p class="text-white font-weight-bold mt-3">Table Six</p> 
+                                    <p class="text-white font-weight-bold mt-3"></p> 
                                 </div>
                                 
                                 <div class="text-center">

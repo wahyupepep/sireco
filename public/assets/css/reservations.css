@@ -1,5 +1,5 @@
 .table-reservation {
-    background: #a89897;
+    background: #7b7b7b;
     padding: 0.5rem;
     width: 25%;
     display: flex;
@@ -8,7 +8,7 @@
     text-align: center;
     margin-left: auto;
     margin-right: auto;
-    border-radius: 15px;
+    border-radius: 5px;
     margin-bottom: 0.5rem;
     margin-top: 0.5rem;
 }

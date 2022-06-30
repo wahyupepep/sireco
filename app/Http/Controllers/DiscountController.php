@@ -33,7 +33,7 @@ class DiscountController extends Controller
                 })
                 ->addColumn('action', function ($row) {
                     $btn = '<a href="#" class="edit-brand btn btn-gradient-warning btn-sm"><i class="mdi mdi-lead-pencil"></i></a>';
-                    $btn .= '<button class="delete-room btn btn-gradient-danger btn-sm ml-1" data-id=' .  Crypt::encryptString($row->id) . ' data-name="' . $row->name . '"><i class="mdi mdi-delete"></i></button>';
+                    $btn .= '<button class="delete-discount btn btn-gradient-danger btn-sm ml-1" data-id=' .  Crypt::encryptString($row->id) . ' data-name="' . $row->name . '"><i class="mdi mdi-delete"></i></button>';
                     return $btn;
                 })
 
@@ -86,6 +86,40 @@ class DiscountController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->route('master.discount.add')->withErrors($th->getMessage() . ' on the line ' . $th->getLine())->withInput();
+        }
+    }
+
+    public function delete(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+
+            $discount = Discount::find(Crypt::decryptString($request->id));
+
+            if (empty($discount)) {
+                return response()->json([
+                    'code' => 404,
+                    'success' => false,
+                    'message' => 'Data not found'
+                ]);
+            }
+
+            $discount->delete();
+
+            DB::commit();
+
+            return response()->json([
+                'code' => 200,
+                'success' => true,
+                'message' => 'Successfully delete data discount'
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json([
+                'code' => 500,
+                'success' => false,
+                'message' => $th->getMessage() . ' on the line ' . $th->getLine()
+            ], 500);
         }
     }
 }
