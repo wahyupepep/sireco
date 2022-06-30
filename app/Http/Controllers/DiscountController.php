@@ -32,7 +32,7 @@ class DiscountController extends Controller
                     return $row->valid_date;
                 })
                 ->addColumn('action', function ($row) {
-                    $btn = '<a href="#" class="edit-brand btn btn-gradient-warning btn-sm"><i class="mdi mdi-lead-pencil"></i></a>';
+                    $btn = '<a href="' . route('master.discount.edit', Crypt::encryptString($row->id)) . '" class="edit-brand btn btn-gradient-warning btn-sm"><i class="mdi mdi-lead-pencil"></i></a>';
                     $btn .= '<button class="delete-discount btn btn-gradient-danger btn-sm ml-1" data-id=' .  Crypt::encryptString($row->id) . ' data-name="' . $row->name . '"><i class="mdi mdi-delete"></i></button>';
                     return $btn;
                 })
@@ -88,6 +88,61 @@ class DiscountController extends Controller
             return redirect()->route('master.discount.add')->withErrors($th->getMessage() . ' on the line ' . $th->getLine())->withInput();
         }
     }
+
+    public function edit($id)
+    {
+        try {
+            $discount = Discount::find(Crypt::decryptString($id));
+
+            if (empty($discount)) {
+                return redirect()->route('master.discount.edit', ['id' => $id])->withErrors('Data Category Member Found')->withInput();
+            }
+
+            return view('content-dashboard.masters.discounts.edit',compact('id','discount'));
+        } catch (\Throwable $th) {
+            return redirect()->route('master.discount.edit', ['id' => $id])->withErrors($th->getMessage() . ' on the line ' . $th->getLine())->withInput();
+        }
+    }
+
+    public function update(Request $request, $id)
+    {
+        try {
+            DB::beginTransaction();
+
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|string',
+                'discount' => 'required|integer',
+                'start_date' => 'required|date',
+                'valid_date' => 'required|date'
+            ]);
+
+            if ($validator->fails()) {
+                return redirect()->route('master.discount.edit', ['id' => $id])
+                    ->withErrors($validator)
+                    ->withInput();
+            }
+
+            $discount = Discount::find(Crypt::decryptString($id));
+
+            if (empty($discount)) {
+                return redirect()->route('master.discount.index')->withErrors('Data Payment Method Not Found')->withInput();
+            }
+
+            $discount->update([
+                'name' => $request->name,
+                'discount' => $request->discount,
+                'start_date' => $request->start_date,
+                'valid_date' => $request->valid_date
+            ]);
+
+            DB::commit();
+
+            return redirect()->route('master.discount.index')->with('status', 'Successfully update payment methods');
+        } catch (\Throwable $th) {
+            return redirect()->route('master.discount.edit', ['id' => $id])->withErrors($th->getMessage() . ' on the line ' . $th->getLine())->withInput();
+        }
+    }
+
 
     public function delete(Request $request)
     {

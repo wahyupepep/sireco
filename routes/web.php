@@ -105,8 +105,8 @@ Route::group([
                         Route::get('/', [DiscountController::class, 'index'])->name('index');
                         Route::get('/add', [DiscountController::class, 'add'])->name('add');
                         Route::post('/store', [DiscountController::class, 'store'])->name('store');
-                        // Route::get('/edit/{id}', [DiscountController::class, 'edit'])->name('edit');
-                        // Route::put('/update/{id}', [DiscountController::class, 'update'])->name('update');
+                        Route::get('/edit/{id}', [DiscountController::class, 'edit'])->name('edit');
+                        Route::put('/update/{id}', [DiscountController::class, 'update'])->name('update');
                         Route::delete('/delete', [DiscountController::class, 'delete'])->name('delete');
                 });
         });
