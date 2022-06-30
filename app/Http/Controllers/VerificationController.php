@@ -14,7 +14,16 @@ class VerificationController extends Controller
     public function index()
     {
         return view('content-dashboard.verifications.index');
+    }
 
+    public function detailOrder($id)
+    {
+        return view('content-dashboard.verifications.detail_order');
+    }
+
+    public function verifiedDetailOrder($id)
+    {
+        return view('content-dashboard.verifications.verification_detail_order');
     }
 
     /**
