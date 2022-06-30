@@ -64,6 +64,8 @@ Route::group([
         });
         Route::group(['prefix' => 'verification', 'as' => 'verification.'], function () {
                 Route::get('/', [VerificationController::class, 'index'])->name('index');
+                Route::get('/detail-order/{id}', [VerificationController::class, 'detailOrder'])->name('detail-order');
+                Route::get('verified/detail-order/{id}', [VerificationController::class, 'verifiedDetailOrder'])->name('verified-order');
         });
         Route::group(['prefix' => 'setting', 'as' => 'setting.'], function () {
                 Route::get('profile/{id}', [SettingController::class, 'profile'])->name('profile');
