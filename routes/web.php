@@ -50,6 +50,9 @@ Route::group([
         });
         Route::group(['prefix' => 'seat', 'as' => 'seat.'], function () {
                 Route::get('/', [SeatController::class, 'index'])->name('index');
+                Route::post('/list-seat', [SeatController::class, 'listSeat'])->name('list-seat');
+                Route::post('/order', [SeatController::class, 'order'])->name('order');
+                Route::post('confirm/order', [SeatController::class, 'confirmOrder'])->name('confirm-order');
                 Route::get('/order-summary/{id}', [SeatController::class, 'orderSummary'])->name('order-summary');
                 Route::get('/list-order', [SeatController::class, 'listOrder'])->name('list-order');
                 Route::get('/detail-order/{id}', [SeatController::class, 'detailOrder'])->name('detail-order');

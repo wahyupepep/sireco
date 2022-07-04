@@ -8,24 +8,37 @@
         <div class="row">
             <div class="container">
                 <div class="row mb-4">
+                    <input type="hidden" name="chair_code_name" id="chair_code_name">
                     <div class="col-md-3">
                         <label for="date_reservation_start">Date Reservation</label>
-                        <input type="date" name="date_reservation_start" id="date_reservation_start" class="form-control mt-2 mb-3">
+                        <input type="date" name="date_reservation_start" id="date_reservation_start" class="form-control mt-2 mb-3" min="{{date('Y-m-d')}}" value="{{date('Y-m-d')}}">
                     </div>
+                    @if (!$select_package)
+                        <div class="col-md-3">
+                            <label for="package_member">Package Member</label>
+                            <select class="form-control mt-2 mb-3" id="package_member" name="package_member" required>
+                                @forelse ($category_members as $category_member)
+                                    <option value="{{$category_member->id}}">{{$category_member->name}}</option>
+                                @empty
+                                    <option value="">Package Not Found</option>
+                                @endforelse
+                            </select>
+                        </div>
+                    @endif
                 </div>
                 <div class="row mb-4">
                     <div class="col-md-1 door-reservation align-items-center justify-content-center d-flex" style="height: 100px; background-color:black">
                         <h3 class="text-white font-weight-bold" style="transform: rotate(90deg)">Door</h2>
                     </div>
-                    <div class="col-md-10">
+                    <div class="col-md-10" id="reservation-chairs">
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <div class="text-center">
-                                    <label class="checkbox-button-available shadow" style="border-radius: 3px">
-                                        <span class="p-2 button-reservation" id="chair-1" data-id="chair-1"></span>
+                                    <label class="{{in_array('chair-1', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow" style="border-radius: 3px">
+                                        <span class="p-2 {{in_array('chair-1', $seat_codes) ?  "": "button-reservation"}}" id="chair-1" data-id="chair-1"></span>
                                     </label>
-                                    <label class="checkbox-button-reserved shadow" style="border-radius: 3px">
-                                        <span class="p-2 button-reservation" id="chair-2" data-id="chair-2"></span>
+                                    <label class="{{in_array('chair-2', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow" style="border-radius: 3px">
+                                        <span class="p-2 {{in_array('chair-2', $seat_codes) ?  "": "button-reservation"}}" id="chair-2" data-id="chair-2"></span>
                                     </label>
                                 </div>
                                 
@@ -34,21 +47,21 @@
                                 </div>
                                 
                                 <div class="text-center">
-                                    <label class="checkbox-button-available shadow" style="border-radius: 3px">
-                                        <span class="p-2 button-reservation" id="chair-3" data-id="chair-3"></span>
+                                    <label class="{{in_array('chair-3', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow" style="border-radius: 3px">
+                                        <span class="p-2 {{in_array('chair-3', $seat_codes) ?  "": "button-reservation"}}" id="chair-3" data-id="chair-3"></span>
                                     </label>
-                                    <label class="checkbox-button-available shadow" style="border-radius: 3px">
-                                        <span class="p-2 button-reservation" id="chair-4" data-id="chair-4"></span>
+                                    <label class="{{in_array('chair-4', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow" style="border-radius: 3px">
+                                        <span class="p-2 {{in_array('chair-4', $seat_codes) ?  "": "button-reservation"}}" id="chair-4" data-id="chair-4"></span>
                                     </label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="text-center">
-                                    <label class="checkbox-button-available shadow" style="border-radius: 3px">
-                                        <span class="p-2 button-reservation" id="chair-5" data-id="chair-5"></span>
+                                    <label class="{{in_array('chair-5', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow" style="border-radius: 3px">
+                                        <span class="p-2 {{in_array('chair-5', $seat_codes) ?  "": "button-reservation"}}" id="chair-5" data-id="chair-5"></span>
                                     </label>
-                                    <label class="checkbox-button-available shadow" style="border-radius: 3px">
-                                        <span class="p-2 button-reservation" id="chair-6" data-id="chair-6"></span>
+                                    <label class="{{in_array('chair-6', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow" style="border-radius: 3px">
+                                        <span class="p-2 {{in_array('chair-6', $seat_codes) ?  "": "button-reservation"}}" id="chair-6" data-id="chair-6"></span>
                                     </label>
                                 </div>
                                 
@@ -57,11 +70,11 @@
                                 </div>
                                 
                                 <div class="text-center">
-                                    <label class="checkbox-button-available shadow" style="border-radius: 3px">
-                                        <span class="p-2 button-reservation" id="chair-7" data-id="chair-7"></span>
+                                    <label class="{{in_array('chair-7', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow" style="border-radius: 3px">
+                                        <span class="p-2 {{in_array('chair-7', $seat_codes) ?  "": "button-reservation"}}" id="chair-7" data-id="chair-7"></span>
                                     </label>
-                                    <label class="checkbox-button-available shadow" style="border-radius: 3px">
-                                        <span class="p-2 button-reservation" id="chair-8" data-id="chair-8"></span>
+                                    <label class="{{in_array('chair-8', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow" style="border-radius: 3px">
+                                        <span class="p-2 {{in_array('chair-8', $seat_codes) ?  "": "button-reservation"}}" id="chair-8" data-id="chair-8"></span>
                                     </label>
                                 </div>
                             </div>
@@ -70,11 +83,11 @@
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <div class="text-center">
-                                    <label class="checkbox-button-available shadow" style="border-radius: 3px">
-                                        <span class="p-2 button-reservation" id="chair-9" data-id="chair-9"></span>
+                                    <label class="{{in_array('chair-9', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow" style="border-radius: 3px">
+                                        <span class="p-2 {{in_array('chair-9', $seat_codes) ?  "": "button-reservation"}}" id="chair-9" data-id="chair-9"></span>
                                     </label>
-                                    <label class="checkbox-button-available shadow" style="border-radius: 3px">
-                                        <span class="p-2 button-reservation" id="chair-10" data-id="chair-10"></span>
+                                    <label class="{{in_array('chair-10', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow" style="border-radius: 3px">
+                                        <span class="p-2 {{in_array('chair-10', $seat_codes) ?  "": "button-reservation"}}" id="chair-10" data-id="chair-10"></span>
                                     </label>
                                 </div>
                                 
@@ -83,21 +96,21 @@
                                 </div>
                                 
                                 <div class="text-center">
-                                    <label class="checkbox-button-available shadow" style="border-radius: 3px">
-                                        <span class="p-2 button-reservation" id="chair-11" data-id="chair-11"></span>
+                                    <label class="{{in_array('chair-11', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow" style="border-radius: 3px">
+                                        <span class="p-2 {{in_array('chair-11', $seat_codes) ?  "": "button-reservation"}}" id="chair-11" data-id="chair-11"></span>
                                     </label>
-                                    <label class="checkbox-button-available shadow" style="border-radius: 3px">
-                                        <span class="p-2 button-reservation" id="chair-12" data-id="chair-12"></span>
+                                    <label class="{{in_array('chair-12', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow" style="border-radius: 3px">
+                                        <span class="p-2 {{in_array('chair-12', $seat_codes) ?  "": "button-reservation"}}" id="chair-12" data-id="chair-12"></span>
                                     </label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="text-center">
-                                    <label class="checkbox-button-available shadow" style="border-radius: 3px">
-                                        <span class="p-2 button-reservation" id="chair-13" data-id="chair-13"></span>
+                                    <label class="{{in_array('chair-13', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow" style="border-radius: 3px">
+                                        <span class="p-2 {{in_array('chair-13', $seat_codes) ?  "": "button-reservation"}}" id="chair-13" data-id="chair-13"></span>
                                     </label>
-                                    <label class="checkbox-button-available shadow" style="border-radius: 3px">
-                                        <span class="p-2 button-reservation" id="chair-14" data-id="chair-14"></span>
+                                    <label class="{{in_array('chair-14', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow" style="border-radius: 3px">
+                                        <span class="p-2 {{in_array('chair-14', $seat_codes) ?  "": "button-reservation"}}" id="chair-14" data-id="chair-14"></span>
                                     </label>
                                 </div>
                                 
@@ -106,11 +119,11 @@
                                 </div>
                                 
                                 <div class="text-center">
-                                    <label class="checkbox-button-available shadow" style="border-radius: 3px">
-                                        <span class="p-2 button-reservation" id="chair-15" data-id="chair-15"></span>
+                                    <label class="{{in_array('chair-15', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow" style="border-radius: 3px">
+                                        <span class="p-2 {{in_array('chair-15', $seat_codes) ?  "": "button-reservation"}}" id="chair-15" data-id="chair-15"></span>
                                     </label>
-                                    <label class="checkbox-button-available shadow" style="border-radius: 3px">
-                                        <span class="p-2 button-reservation" id="chair-16" data-id="chair-16"></span>
+                                    <label class="{{in_array('chair-16', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow" style="border-radius: 3px">
+                                        <span class="p-2 {{in_array('chair-16', $seat_codes) ?  "": "button-reservation"}}" id="chair-16" data-id="chair-16"></span>
                                     </label>
                                 </div>
                             </div>
@@ -119,11 +132,11 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="text-center">
-                                    <label class="checkbox-button-available shadow" style="border-radius: 3px">
-                                        <span class="p-2 button-reservation" id="chair-17" data-id="chair-17"></span>
+                                    <label class="{{in_array('chair-17', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow" style="border-radius: 3px">
+                                        <span class="p-2 {{in_array('chair-17', $seat_codes) ?  "": "button-reservation"}}" id="chair-17" data-id="chair-17"></span>
                                     </label>
-                                    <label class="checkbox-button-available shadow" style="border-radius: 3px">
-                                        <span class="p-2 button-reservation" id="chair-18" data-id="chair-18"></span>
+                                    <label class="{{in_array('chair-18', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow" style="border-radius: 3px">
+                                        <span class="p-2 {{in_array('chair-18', $seat_codes) ?  "": "button-reservation"}}" id="chair-18" data-id="chair-18"></span>
                                     </label>
                                 </div>
                                 
@@ -132,21 +145,21 @@
                                 </div>
                                 
                                 <div class="text-center">
-                                    <label class="checkbox-button-available shadow" style="border-radius: 3px">
-                                        <span class="p-2 button-reservation" id="chair-19" data-id="chair-19"></span>
+                                    <label class="{{in_array('chair-19', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow" style="border-radius: 3px">
+                                        <span class="p-2 {{in_array('chair-19', $seat_codes) ?  "": "button-reservation"}}" id="chair-19" data-id="chair-19"></span>
                                     </label>
-                                    <label class="checkbox-button-available shadow" style="border-radius: 3px">
-                                        <span class="p-2 button-reservation" id="chair-20" data-id="chair-20"></span>
+                                    <label class="{{in_array('chair-20', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow" style="border-radius: 3px">
+                                        <span class="p-2 {{in_array('chair-20', $seat_codes) ?  "": "button-reservation"}}" id="chair-20" data-id="chair-20"></span>
                                     </label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="text-center">
-                                    <label class="checkbox-button-available shadow" style="border-radius: 3px">
-                                        <span class="p-2 button-reservation" id="chair-21" data-id="chair-21"></span>
+                                    <label class="{{in_array('chair-21', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow" style="border-radius: 3px">
+                                        <span class="p-2 {{in_array('chair-21', $seat_codes) ?  "": "button-reservation"}}" id="chair-21" data-id="chair-21"></span>
                                     </label>
-                                    <label class="checkbox-button-available shadow" style="border-radius: 3px">
-                                        <span class="p-2 button-reservation" id="chair-22" data-id="chair-22"></span>
+                                    <label class="{{in_array('chair-22', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow" style="border-radius: 3px">
+                                        <span class="p-2 {{in_array('chair-22', $seat_codes) ?  "": "button-reservation"}}" id="chair-22" data-id="chair-22"></span>
                                     </label>
                                 </div>
                                 
@@ -155,11 +168,11 @@
                                 </div>
                                 
                                 <div class="text-center">
-                                    <label class="checkbox-button-available shadow" style="border-radius: 3px">
-                                        <span class="p-2 button-reservation" id="chair-23" data-id="chair-23"></span>
+                                    <label class="{{in_array('chair-23', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow" style="border-radius: 3px">
+                                        <span class="p-2 {{in_array('chair-23', $seat_codes) ?  "": "button-reservation"}}" id="chair-23" data-id="chair-23"></span>
                                     </label>
-                                    <label class="checkbox-button-available shadow" style="border-radius: 3px">
-                                        <span class="p-2 button-reservation" id="chair-24" data-id="chair-24"></span>
+                                    <label class="{{in_array('chair-24', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow" style="border-radius: 3px">
+                                        <span class="p-2 {{in_array('chair-24', $seat_codes) ?  "": "button-reservation"}}" id="chair-24" data-id="chair-24"></span>
                                     </label>
                                 </div>
                             </div>
@@ -198,11 +211,213 @@
             $(document).on('click','.button-reservation', function() {
                 const chair = $(this).data('id')
                 $('.code-chair').html(chair.toUpperCase())
+                $('#chair_code_name').val(chair)
                 $('#modal-reservation').modal('show')
             })
 
             $(document).on('click', '.btn-select-chair', function() {
-                window.location.href = "{{route('seat.order-summary', ['id' => 1])}}"
+                const valueDate = $('#date_reservation_start').val()
+                const packageId = $('#package_member').val()
+                const chair = $('#chair_code_name').val()
+                let url = '{{route("seat.order-summary", ":id")}}'
+                // window.location.href = "{{route('seat.order-summary', ['id' => 1])}}"
+                $.ajax({
+                    url: "{{route('seat.order')}}",
+                    type: "POST",
+                    data: {
+                        _token: "{{csrf_token()}}",
+                        valueDate: valueDate,
+                        packageId: packageId,
+                        chair:chair
+                    },
+                    beforeSend: function() {
+                        $(this).prop('disabled', true)
+                    },
+                    success: function(res) {
+                        if(res.code == 200) {
+                            url = url.replace(':id', res.data.id)
+                            window.location.href = url
+                        }else {
+                            Swal.fire('Oops',res.message,'info');
+                        }
+                        $(this).prop('disabled', false)
+                        $('#modal-reservation').modal('hide')
+                    },
+                    error: function(err) {
+                        $('#modal-reservation').modal('hide')
+                        $(this).prop('disabled', false)
+                        Swal.fire('Oops',err.responseJSON.message,'info');
+                    }
+                });
+            })
+
+            $(document).on('change','#date_reservation_start', function() {
+                const valueDate = $(this).val()
+                let html = '';
+                $.ajax({
+                    url: "{{route('seat.list-seat')}}",
+                    type: "POST",
+                    data: {
+                        _token: "{{csrf_token()}}",
+                        valueDate: valueDate
+                    },
+                   
+                    success: function(res) {
+                       html += `
+                       <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="text-center">
+                                    <label class="${res.data.includes('chair-1') ? 'checkbox-button-reserved' : 'checkbox-button-available'} shadow" style="border-radius: 3px">
+                                        <span class="p-2 ${res.data.includes('chair-1') ? '' : 'button-reservation'}" id="chair-1" data-id="chair-1"></span>
+                                    </label>
+                                    <label class="${res.data.includes('chair-2') ? 'checkbox-button-reserved' : 'checkbox-button-available'} shadow" style="border-radius: 3px">
+                                        <span class="p-2 ${res.data.includes('chair-2') ? '' : 'button-reservation'}" id="chair-2" data-id="chair-2"></span>
+                                    </label>
+                                </div>
+                                
+                                <div class="table-reservation">
+                                    <p class="text-white font-weight-bold mt-3"></p> 
+                                </div>
+                                
+                                <div class="text-center">
+                                    <label class="${res.data.includes('chair-3') ? 'checkbox-button-reserved' : 'checkbox-button-available'} shadow" style="border-radius: 3px">
+                                        <span class="p-2 ${res.data.includes('chair-3') ? '' : 'button-reservation'}" id="chair-3" data-id="chair-3"></span>
+                                    </label>
+                                    <label class="${res.data.includes('chair-4') ? 'checkbox-button-reserved' : 'checkbox-button-available'} shadow" style="border-radius: 3px">
+                                        <span class="p-2 ${res.data.includes('chair-4') ? '' : 'button-reservation'}" id="chair-4" data-id="chair-4"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="text-center">
+                                    <label class="${res.data.includes('chair-5') ? 'checkbox-button-reserved' : 'checkbox-button-available'} shadow" style="border-radius: 3px">
+                                        <span class="p-2 ${res.data.includes('chair-5') ? '' : 'button-reservation'}" id="chair-5" data-id="chair-5"></span>
+                                    </label>
+                                    <label class="${res.data.includes('chair-6') ? 'checkbox-button-reserved' : 'checkbox-button-available'} shadow" style="border-radius: 3px">
+                                        <span class="p-2 ${res.data.includes('chair-6') ? '' : 'button-reservation'}" id="chair-6" data-id="chair-6"></span>
+                                    </label>
+                                </div>
+                                
+                                <div class="table-reservation">
+                                    <p class="text-white font-weight-bold mt-3"></p> 
+                                </div>
+                                
+                                <div class="text-center">
+                                    <label class="${res.data.includes('chair-7') ? 'checkbox-button-reserved' : 'checkbox-button-available'} shadow" style="border-radius: 3px">
+                                        <span class="p-2 ${res.data.includes('chair-7') ? '' : 'button-reservation'}" id="chair-7" data-id="chair-7"></span>
+                                    </label>
+                                    <label class="${res.data.includes('chair-8') ? 'checkbox-button-reserved' : 'checkbox-button-available'} shadow" style="border-radius: 3px">
+                                        <span class="p-2 ${res.data.includes('chair-8') ? '' : 'button-reservation'}" id="chair-8" data-id="chair-8"></span>
+                                    </label>
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="text-center">
+                                    <label class="${res.data.includes('chair-9') ? 'checkbox-button-reserved' : 'checkbox-button-available'} shadow" style="border-radius: 3px">
+                                        <span class="p-2 ${res.data.includes('chair-9') ? '' : 'button-reservation'}" id="chair-9" data-id="chair-9"></span>
+                                    </label>
+                                    <label class="${res.data.includes('chair-10') ? 'checkbox-button-reserved' : 'checkbox-button-available'} shadow" style="border-radius: 3px">
+                                        <span class="p-2 ${res.data.includes('chair-10') ? '' : 'button-reservation'}" id="chair-10" data-id="chair-10"></span>
+                                    </label>
+                                </div>
+                                
+                                <div class="table-reservation">
+                                    <p class="text-white font-weight-bold mt-3"></p> 
+                                </div>
+                                
+                                <div class="text-center">
+                                    <label class="${res.data.includes('chair-11') ? 'checkbox-button-reserved' : 'checkbox-button-available'} shadow" style="border-radius: 3px">
+                                        <span class="p-2 ${res.data.includes('chair-11') ? '' : 'button-reservation'}" id="chair-11" data-id="chair-11"></span>
+                                    </label>
+                                    <label class="${res.data.includes('chair-12') ? 'checkbox-button-reserved' : 'checkbox-button-available'} shadow" style="border-radius: 3px">
+                                        <span class="p-2 ${res.data.includes('chair-12') ? '' : 'button-reservation'}" id="chair-12" data-id="chair-12"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="text-center">
+                                    <label class="${res.data.includes('chair-13') ? 'checkbox-button-reserved' : 'checkbox-button-available'} shadow" style="border-radius: 3px">
+                                        <span class="p-2 ${res.data.includes('chair-13') ? '' : 'button-reservation'}" id="chair-13" data-id="chair-13"></span>
+                                    </label>
+                                    <label class="${res.data.includes('chair-14') ? 'checkbox-button-reserved' : 'checkbox-button-available'} shadow" style="border-radius: 3px">
+                                        <span class="p-2 ${res.data.includes('chair-14') ? '' : 'button-reservation'}" id="chair-14" data-id="chair-14"></span>
+                                    </label>
+                                </div>
+                                
+                                <div class="table-reservation">
+                                    <p class="text-white font-weight-bold mt-3"></p> 
+                                </div>
+                                
+                                <div class="text-center">
+                                    <label class="${res.data.includes('chair-15') ? 'checkbox-button-reserved' : 'checkbox-button-available'} shadow" style="border-radius: 3px">
+                                        <span class="p-2 ${res.data.includes('chair-15') ? '' : 'button-reservation'}" id="chair-15" data-id="chair-15"></span>
+                                    </label>
+                                    <label class="${res.data.includes('chair-16') ? 'checkbox-button-reserved' : 'checkbox-button-available'} shadow" style="border-radius: 3px">
+                                        <span class="p-2 ${res.data.includes('chair-16') ? '' : 'button-reservation'}" id="chair-16" data-id="chair-16"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="text-center">
+                                    <label class="${res.data.includes('chair-17') ? 'checkbox-button-reserved' : 'checkbox-button-available'} shadow" style="border-radius: 3px">
+                                        <span class="p-2 ${res.data.includes('chair-17') ? '' : 'button-reservation'}" id="chair-17" data-id="chair-17"></span>
+                                    </label>
+                                    <label class="${res.data.includes('chair-18') ? 'checkbox-button-reserved' : 'checkbox-button-available'} shadow" style="border-radius: 3px">
+                                        <span class="p-2 ${res.data.includes('chair-18') ? '' : 'button-reservation'}" id="chair-18" data-id="chair-18"></span>
+                                    </label>
+                                </div>
+                                
+                                <div class="table-reservation">
+                                    <p class="text-white font-weight-bold mt-3"></p> 
+                                </div>
+                                
+                                <div class="text-center">
+                                    <label class="${res.data.includes('chair-19') ? 'checkbox-button-reserved' : 'checkbox-button-available'} shadow" style="border-radius: 3px">
+                                        <span class="p-2 ${res.data.includes('chair-19') ? '' : 'button-reservation'}" id="chair-19" data-id="chair-19"></span>
+                                    </label>
+                                    <label class="${res.data.includes('chair-20') ? 'checkbox-button-reserved' : 'checkbox-button-available'} shadow" style="border-radius: 3px">
+                                        <span class="p-2 ${res.data.includes('chair-20') ? '' : 'button-reservation'}" id="chair-20" data-id="chair-20"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="text-center">
+                                    <label class="${res.data.includes('chair-21') ? 'checkbox-button-reserved' : 'checkbox-button-available'} shadow" style="border-radius: 3px">
+                                        <span class="p-2 ${res.data.includes('chair-21') ? '' : 'button-reservation'}" id="chair-21" data-id="chair-21"></span>
+                                    </label>
+                                    <label class="${res.data.includes('chair-22') ? 'checkbox-button-reserved' : 'checkbox-button-available'} shadow" style="border-radius: 3px">
+                                        <span class="p-2 ${res.data.includes('chair-22') ? '' : 'button-reservation'}" id="chair-22" data-id="chair-22"></span>
+                                    </label>
+                                </div>
+                                
+                                <div class="table-reservation">
+                                    <p class="text-white font-weight-bold mt-3"></p> 
+                                </div>
+                                
+                                <div class="text-center">
+                                    <label class="${res.data.includes('chair-23') ? 'checkbox-button-reserved' : 'checkbox-button-available'} shadow" style="border-radius: 3px">
+                                        <span class="p-2 ${res.data.includes('chair-23') ? '' : 'button-reservation'}" id="chair-23" data-id="chair-23"></span>
+                                    </label>
+                                    <label class="${res.data.includes('chair-24') ? 'checkbox-button-reserved' : 'checkbox-button-available'} shadow" style="border-radius: 3px">
+                                        <span class="p-2 ${res.data.includes('chair-24') ? '' : 'button-reservation'}" id="chair-24" data-id="chair-24"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                        </div>
+                       `
+                       $('#reservation-chairs').html(html)
+                    },
+                    error: function(err) {
+                       
+                        Swal.fire('Oops',err.responseJSON.message,'info');
+                    }
+                })
             })
         })
     </script>

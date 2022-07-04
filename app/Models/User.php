@@ -50,4 +50,9 @@ class User extends Authenticatable
     const WORK_TYPE = ['Goverment', 'Lifestyle', 'Business', 'Community', 'Startup', 'Art', 'F&B', 'Media', 'Education', 'NGO', 'Perorangan'];
     const AGE = ['15-24', '25-34', '35-44', '45-54', '55+'];
     const HOBBY = ['Bisnis', 'Pemasaran & Komunikasi', 'Science & Tech', 'Kesehatan Jasmani & Mental', 'Seni Rupa', 'Permainan & Hiburan', 'Pengembangan Diri', 'Desain, Fesyen, & Kriya', 'Sosial & Lingkungan', 'Makanan & Minuman'];
+
+    public function package()
+    {
+        return $this->belongsTo(CategoryMember::class, 'package_id');
+    }
 }
