@@ -42,21 +42,28 @@
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <td class="py-1">
-                                  1
-                                </td>
-                                <td> INV/001/A1/2706022</td>
-                                <td>
-                                    27 June 2022
-                                </td>
-                                <td> A1</td>
-                                <td>
-                                    <button type="button" class="btn btn-gradient-info btn-icon btn-detail-order">
-                                        <i class="mdi mdi-eye"></i>
-                                    </button>
-                                </td>
-                              </tr>
+                              @forelse ($active_order as $key => $item)
+                                <tr>
+                                  <td class="py-1">
+                                    {{$key + 1}}
+                                  </td>
+                                  <td> {{$item->number_invoice}}</td>
+                                  <td>
+                                      {{date('d M Y', strtotime($item->order_date))}}
+                                  </td>
+                                  <td> {{strtoupper($item->seat_code)}}</td>
+                                  <td>
+                                      <button type="button" class="btn btn-gradient-info btn-icon btn-detail-order" data-id="{{Crypt::encryptString($item->id)}}">
+                                          <i class="mdi mdi-eye"></i>
+                                      </button>
+                                  </td>
+                                </tr>
+                              @empty
+                                  <tr>
+                                    <td colspan="5" class="text-center font-weight-bold">Active Order Empty</td>
+                                  </tr>
+                              @endforelse
+                             
                               
                             </tbody>
                           </table>
@@ -77,24 +84,32 @@
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <td class="py-1">
-                                  1
-                                </td>
-                                <td> INV/001/A1/2706022</td>
-                                <td>
-                                    27 June 2022
-                                </td>
-                                <td> A1</td>
-                                <td>
-                                    <button type="button" class="btn btn-gradient-success btn-icon ml-2 btn-payment-order">
+                              @forelse ($progress_order as $key => $item)
+                                  <tr>
+                                    <td class="py-1">
+                                      {{$key + 1}}
+                                    </td>
+                                    <td> {{$item->number_invoice}}</td>
+                                    <td>
+                                        {{date('d M Y', strtotime($item->order_date))}}
+                                    </td>
+                                    <td> {{strtoupper($item->seat_code)}}</td>
+                                    <td>
+                                      @if ($item->history_transaction->price > 0  && is_null($item->payment_file))
+                                      <button type="button" class="btn btn-gradient-success btn-icon btn-payment-order" data-id="{{Crypt::encryptString($item->id)}}">
                                         <i class="mdi mdi-upload"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-gradient-info btn-icon btn-icon btn-detail-order">
-                                        <i class="mdi mdi-eye"></i>
-                                    </button>
-                                </td>
-                              </tr>
+                                      </button>
+                                      @endif
+                                      <button type="button" class="btn btn-gradient-info btn-icon btn-icon btn-detail-order" data-id="{{Crypt::encryptString($item->id)}}">
+                                          <i class="mdi mdi-eye"></i>
+                                      </button>
+                                    </td>
+                                  </tr>
+                              @empty
+                                  <tr>
+                                    <td colspan="5"  class="text-center font-weight-bold">Progress Order Empty</td>
+                                  </tr>
+                              @endforelse
                               
                             </tbody>
                           </table>
@@ -111,22 +126,27 @@
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <td class="py-1">
-                                  1
-                                </td>
-                                <td> INV/001/A1/2706022</td>
-                                <td>
-                                    27 June 2022
-                                </td>
-                                <td> A1</td>
-                                <td>
-                                    <button type="button" class="btn btn-gradient-secondary btn-icon btn-icon btn-detail-order">
+                              @forelse ($complete_order as $key => $item)
+                                  <tr>
+                                    <td class="py-1">
+                                      {{$key + 1}}
+                                    </td>
+                                    <td> {{$item->number_invoice}}</td>
+                                    <td>
+                                        {{date('d M Y', strtotime($item->order_date))}}
+                                    </td>
+                                    <td> {{strtoupper($item->seat_code)}}</td>
+                                    <td>
+                                      <button type="button" class="btn btn-gradient-secondary btn-icon btn-icon btn-detail-order" data-id="{{Crypt::encryptString($item->id)}}">
                                         <i class="mdi mdi-eye"></i>
                                     </button>
-                                </td>
-                              </tr>
-                              
+                                    </td>
+                                  </tr>
+                              @empty
+                                  <tr>
+                                    <td colspan="5"  class="text-center font-weight-bold">Complete Order Empty</td>
+                                  </tr>
+                              @endforelse
                             </tbody>
                           </table>
                     </div>
@@ -141,11 +161,17 @@
     <script>
         $(document).ready(function() {
             $(document).on('click','.btn-detail-order',function() {
-                window.location.href="{{route('seat.detail-order', ['id' => 1])}}"
+              const id = $(this).data('id')
+              let url = "{{route('seat.detail-order', ':id')}}"
+              url = url.replace(':id', id)
+              window.location.href=url
             })
 
             $(document).on('click','.btn-payment-order', function() {
-              window.location.href="{{route('seat.payment-order', ['id' => 1])}}"
+              const id = $(this).data('id')
+              let url = "{{route('seat.payment-order', ':id')}}"
+              url = url.replace(':id', id)
+              window.location.href=url
             })
         })
     </script>
