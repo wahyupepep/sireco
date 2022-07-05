@@ -57,6 +57,7 @@ Route::group([
                 Route::get('/list-order', [SeatController::class, 'listOrder'])->name('list-order');
                 Route::get('/detail-order/{id}', [SeatController::class, 'detailOrder'])->name('detail-order');
                 Route::get('/payment/{id}', [SeatController::class, 'paymentOrder'])->name('payment-order');
+                Route::post('upload/payment', [SeatController::class, 'uploadPayment'])->name('upload-payment');
         });
 
         Route::group(['prefix' => 'sale', 'as' => 'sale.'], function () {
