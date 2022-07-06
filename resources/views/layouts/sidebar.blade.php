@@ -20,12 +20,12 @@
           <i class="mdi mdi-home menu-icon"></i>
         </a>
       </li>
-      {{-- <li class="nav-item">
+      <li class="nav-item">
         <a href="{{route('fdseat.index')}}" class="nav-link ">
           <span class="menu-title">Seats</span>
           <i class="mdi mdi-seat menu-icon"></i>
         </a>
-      </li>    --}}
+      </li>   
       <li class="nav-item">
         <a href="{{route('seat.index')}}" class="nav-link ">
           <span class="menu-title">Reservation</span>
