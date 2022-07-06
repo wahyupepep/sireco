@@ -65,6 +65,8 @@ Route::group([
         });
         Route::group(['prefix' => 'member', 'as' => 'member.'], function () {
                 Route::get('/', [MemberController::class, 'index'])->name('index');
+                Route::get('data', [MemberController::class, 'memberData'])->name('data');
+                Route::post('check-data', [MemberController::class, 'memberCheckData'])->name('checkdata');
         });
         Route::group(['prefix' => 'verification', 'as' => 'verification.'], function () {
                 Route::get('/', [VerificationController::class, 'index'])->name('index');
