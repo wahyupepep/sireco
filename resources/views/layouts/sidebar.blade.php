@@ -26,28 +26,24 @@
           <i class="mdi mdi-seat menu-icon"></i>
         </a>
       </li>    --}}
-      {{-- <li class="nav-item">
+      <li class="nav-item">
         <a href="{{route('seat.index')}}" class="nav-link ">
           <span class="menu-title">Reservation</span>
           <i class="mdi mdi-seat menu-icon"></i>
         </a>
-      </li>   
+      </li> 
+        
       <li class="nav-item">
         <a href="{{route('seat.list-order')}}" class="nav-link ">
           <span class="menu-title">Orders</span>
-          <i class="mdi mdi-seat menu-icon"></i>
+          <i class="mdi mdi mdi-basket menu-icon"></i>
         </a>
       </li>   
-      <li class="nav-item"> --}}
-        {{-- <a href="{{route('payment.index')}}" class="nav-link ">
-          <span class="menu-title">Payment</span>
-          <i class="mdi mdi-currency-usd menu-icon"></i>
-        </a>
-      </li>    --}}
+      
       <li class="nav-item">
         <a href="{{route('sale.index')}}" class="nav-link ">
           <span class="menu-title">Sales</span>
-          <i class="mdi mdi-cash-multiple menu-icon"></i>
+          <i class="mdi mdi-chart-areaspline menu-icon"></i>
         </a>
       </li>   
       <li class="nav-item">
@@ -59,10 +55,10 @@
       <li class="nav-item">
         <a href="{{route('verification.index')}}" class="nav-link ">
           <span class="menu-title">Payment Verification</span>
-          <i class="mdi mdi-credit-card menu-icon"></i>
+          <i class="mdi mdi-marker-check menu-icon"></i>
         </a>
       </li>   
-      {{-- <li class="nav-item">
+      <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#settings" aria-expanded="false" aria-controls="ui-basic">
           <span class="menu-title">Setting</span>
           <i class="menu-arrow"></i>
@@ -78,7 +74,7 @@
             
           </ul>
         </div>
-      </li> --}}
+      </li>
       <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#master" aria-expanded="false" aria-controls="ui-basic">
           <span class="menu-title">Master</span>

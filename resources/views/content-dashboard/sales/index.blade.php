@@ -20,7 +20,6 @@
                             <th>Duration</th>
                             <th>Start Date</th>
                             <th>End Date</th>
-                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
