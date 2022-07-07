@@ -63,6 +63,7 @@ Route::group([
 
         Route::group(['prefix' => 'sale', 'as' => 'sale.'], function () {
                 Route::get('/', [SaleController::class, 'index'])->name('index');
+                Route::post('total-income', [SaleController::class, 'getTotalIncome'])->name('total-income');
         });
         Route::group(['prefix' => 'member', 'as' => 'member.'], function () {
                 Route::get('/', [MemberController::class, 'index'])->name('index');
