@@ -10,250 +10,255 @@
 @section('content')
     @include('layouts.overview',['text' => 'Seats', 'icon' => 'mdi mdi-view-agenda'])
     <div class="container">
-        <div class="row">
-            <div class="container">
-                <div class="row mb-4">
-                    <input type="hidden" name="chair_code_name" id="chair_code_name">
-                    <div class="col-md-3">
-                        <label for="date_reservation_start">Date Reservation</label>
-                        <input type="date" name="date_reservation_start" id="date_reservation_start" class="form-control mt-2 mb-3" min="{{date('Y-m-d')}}" value="{{date('Y-m-d')}}">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="radio-member">Categoy Member</label>
-                        <div class="d-flex">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="member" id="member" value="1" checked>
-                                <label class="form-check-label" for="member">Member</label>
-                              </div>
-                              <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="member" id="not_member" value="0">
-                                <label class="form-check-label" for="not_member">Not Member</label>
-                              </div>
+        <form id="formBooking">
+            @csrf
+            <div class="row">
+                <div class="container">
+                    <div class="row mb-4">
+                        <input type="hidden" name="chair_code_name" id="chair_code_name">
+                        <div class="col-md-3">
+                            <label for="date_reservation_start">Date Reservation</label>
+                            <input type="date" name="date_reservation_start" id="date_reservation_start" class="form-control mt-2 mb-3" min="{{date('Y-m-d')}}" value="{{date('Y-m-d')}}">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="radio-member">Categoy Member</label>
+                            <div class="d-flex">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="member" id="member" value="1" checked>
+                                    <label class="form-check-label" for="member">Member</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="member" id="not_member" value="0">
+                                    <label class="form-check-label" for="not_member">Not Member</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row row-member mt-3 mb-4">
-                    <div class="col-md-12">
-                        <label for="member_name">Member Name</label>
-                        <select class="form-control" name="member_name" id="member_name" style="width: 100% !important">
-                            <option value="">Select Member</option>
-                        </select>
+                    <div class="row row-member mt-3 mb-4">
+                        <div class="col-md-12">
+                            <label for="member_name">Member Name</label>
+                            <select class="form-control" name="member_name" id="member_name" style="width: 100% !important">
+                                <option value="">Select Member</option>
+                            </select>
 
-                        
+                            
+                        </div>
+                        <div class="col-md-12 mt-3 package-member d-none">
+                            <label for="package_member">Package Member</label>
+                            <select class="form-control mt-2 mb-3 class_package_member" id="package_member" name="package_member">
+                                <option value="">--Select Package Member--</option>
+                                @forelse ($category_members as $category_member)
+                                    <option value="{{$category_member->id}}">{{$category_member->name}}</option>
+                                @empty
+                                    <option value="">Package Not Found</option>
+                                @endforelse
+                            </select>
+                        </div>
                     </div>
-                    <div class="col-md-12 mt-3 package-member d-none">
-                        <label for="package_member">Package Member</label>
-                        <select class="form-control mt-2 mb-3" id="package_member" name="package_member">
-                            @forelse ($category_members as $category_member)
-                                <option value="{{$category_member->id}}">{{$category_member->name}}</option>
-                            @empty
-                                <option value="">Package Not Found</option>
-                            @endforelse
-                        </select>
+                    <div class="row row-not-member mt-3 mb-4 d-none">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="fullname">Fullname</label>
+                                <input type="text" class="form-control" id="fullname" name="fullname" value="{{old('fullname')}}" placeholder="Input your name...">
+                                @error('fullname')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="text" class="form-control" id="username" name="username" value="{{old('username')}}" placeholder="Input you username...">
+                                @error('username')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" value="{{old('email')}}" placeholder="Input your email...">
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-12 mt-3">
+                            <label for="package_member">Package Member</label>
+                            <select class="form-control mt-2 mb-3 class_package_member" id="package_not_member" name="package_not_member">
+                                <option value="">--Select Package Member--</option>
+                                @forelse ($category_members as $category_member)
+                                    <option value="{{$category_member->id}}">{{$category_member->name}}</option>
+                                @empty
+                                    <option value="">Package Not Found</option>
+                                @endforelse
+                            </select>
+                        </div>
+                    </div>   
+                    <div class="row mb-4">
+                        <div class="col-md-1 door-reservation align-items-center justify-content-center d-flex" style="height: 100px; background-color:black">
+                            <h3 class="text-white font-weight-bold" style="transform: rotate(90deg)">Door</h2>
+                        </div>
+                        <div class="col-md-10" id="reservation-chairs">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <div class="text-center">
+                                        <label class="{{in_array('chair-1', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-1" style="border-radius: 3px">
+                                            <span class="p-2 {{in_array('chair-1', $seat_codes) ?  "": "button-reservation"}}" id="chair-1" data-id="chair-1"></span>
+                                        </label>
+                                        <label class="{{in_array('chair-2', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-2" style="border-radius: 3px">
+                                            <span class="p-2 {{in_array('chair-2', $seat_codes) ?  "": "button-reservation"}}" id="chair-2" data-id="chair-2"></span>
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="table-reservation">
+                                        <p class="text-white font-weight-bold mt-3"></p> 
+                                    </div>
+                                    
+                                    <div class="text-center">
+                                        <label class="{{in_array('chair-3', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-3" style="border-radius: 3px">
+                                            <span class="p-2 {{in_array('chair-3', $seat_codes) ?  "": "button-reservation"}}" id="chair-3" data-id="chair-3"></span>
+                                        </label>
+                                        <label class="{{in_array('chair-4', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-4" style="border-radius: 3px">
+                                            <span class="p-2 {{in_array('chair-4', $seat_codes) ?  "": "button-reservation"}}" id="chair-4" data-id="chair-4"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="text-center">
+                                        <label class="{{in_array('chair-5', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-5" style="border-radius: 3px">
+                                            <span class="p-2 {{in_array('chair-5', $seat_codes) ?  "": "button-reservation"}}" id="chair-5" data-id="chair-5"></span>
+                                        </label>
+                                        <label class="{{in_array('chair-6', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-6" style="border-radius: 3px">
+                                            <span class="p-2 {{in_array('chair-6', $seat_codes) ?  "": "button-reservation"}}" id="chair-6" data-id="chair-6"></span>
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="table-reservation">
+                                        <p class="text-white font-weight-bold mt-3"></p> 
+                                    </div>
+                                    
+                                    <div class="text-center">
+                                        <label class="{{in_array('chair-7', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-7" style="border-radius: 3px">
+                                            <span class="p-2 {{in_array('chair-7', $seat_codes) ?  "": "button-reservation"}}" id="chair-7" data-id="chair-7"></span>
+                                        </label>
+                                        <label class="{{in_array('chair-8', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-8" style="border-radius: 3px">
+                                            <span class="p-2 {{in_array('chair-8', $seat_codes) ?  "": "button-reservation"}}" id="chair-8" data-id="chair-8"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <div class="text-center">
+                                        <label class="{{in_array('chair-9', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-9" style="border-radius: 3px">
+                                            <span class="p-2 {{in_array('chair-9', $seat_codes) ?  "": "button-reservation"}}" id="chair-9" data-id="chair-9"></span>
+                                        </label>
+                                        <label class="{{in_array('chair-10', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-10" style="border-radius: 3px">
+                                            <span class="p-2 {{in_array('chair-10', $seat_codes) ?  "": "button-reservation"}}" id="chair-10" data-id="chair-10"></span>
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="table-reservation">
+                                        <p class="text-white font-weight-bold mt-3"></p> 
+                                    </div>
+                                    
+                                    <div class="text-center">
+                                        <label class="{{in_array('chair-11', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-11" style="border-radius: 3px">
+                                            <span class="p-2 {{in_array('chair-11', $seat_codes) ?  "": "button-reservation"}}" id="chair-11" data-id="chair-11"></span>
+                                        </label>
+                                        <label class="{{in_array('chair-12', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-12" style="border-radius: 3px">
+                                            <span class="p-2 {{in_array('chair-12', $seat_codes) ?  "": "button-reservation"}}" id="chair-12" data-id="chair-12"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="text-center">
+                                        <label class="{{in_array('chair-13', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-13" style="border-radius: 3px">
+                                            <span class="p-2 {{in_array('chair-13', $seat_codes) ?  "": "button-reservation"}}" id="chair-13" data-id="chair-13"></span>
+                                        </label>
+                                        <label class="{{in_array('chair-14', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-14" style="border-radius: 3px">
+                                            <span class="p-2 {{in_array('chair-14', $seat_codes) ?  "": "button-reservation"}}" id="chair-14" data-id="chair-14"></span>
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="table-reservation">
+                                        <p class="text-white font-weight-bold mt-3"></p> 
+                                    </div>
+                                    
+                                    <div class="text-center">
+                                        <label class="{{in_array('chair-15', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-15" style="border-radius: 3px">
+                                            <span class="p-2 {{in_array('chair-15', $seat_codes) ?  "": "button-reservation"}}" id="chair-15" data-id="chair-15"></span>
+                                        </label>
+                                        <label class="{{in_array('chair-16', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-16" style="border-radius: 3px">
+                                            <span class="p-2 {{in_array('chair-16', $seat_codes) ?  "": "button-reservation"}}" id="chair-16" data-id="chair-16"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="text-center">
+                                        <label class="{{in_array('chair-17', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-17" style="border-radius: 3px">
+                                            <span class="p-2 {{in_array('chair-17', $seat_codes) ?  "": "button-reservation"}}" id="chair-17" data-id="chair-17"></span>
+                                        </label>
+                                        <label class="{{in_array('chair-18', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-18" style="border-radius: 3px">
+                                            <span class="p-2 {{in_array('chair-18', $seat_codes) ?  "": "button-reservation"}}" id="chair-18" data-id="chair-18"></span>
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="table-reservation">
+                                        <p class="text-white font-weight-bold mt-3"></p> 
+                                    </div>
+                                    
+                                    <div class="text-center">
+                                        <label class="{{in_array('chair-19', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-19" style="border-radius: 3px">
+                                            <span class="p-2 {{in_array('chair-19', $seat_codes) ?  "": "button-reservation"}}" id="chair-19" data-id="chair-19"></span>
+                                        </label>
+                                        <label class="{{in_array('chair-20', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-20" style="border-radius: 3px">
+                                            <span class="p-2 {{in_array('chair-20', $seat_codes) ?  "": "button-reservation"}}" id="chair-20" data-id="chair-20"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="text-center">
+                                        <label class="{{in_array('chair-21', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-21" style="border-radius: 3px">
+                                            <span class="p-2 {{in_array('chair-21', $seat_codes) ?  "": "button-reservation"}}" id="chair-21" data-id="chair-21"></span>
+                                        </label>
+                                        <label class="{{in_array('chair-22', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-22" style="border-radius: 3px">
+                                            <span class="p-2 {{in_array('chair-22', $seat_codes) ?  "": "button-reservation"}}" id="chair-22" data-id="chair-22"></span>
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="table-reservation">
+                                        <p class="text-white font-weight-bold mt-3"></p> 
+                                    </div>
+                                    
+                                    <div class="text-center">
+                                        <label class="{{in_array('chair-23', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-23" style="border-radius: 3px">
+                                            <span class="p-2 {{in_array('chair-23', $seat_codes) ?  "": "button-reservation"}}" id="chair-23" data-id="chair-23"></span>
+                                        </label>
+                                        <label class="{{in_array('chair-24', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-24" style="border-radius: 3px">
+                                            <span class="p-2 {{in_array('chair-24', $seat_codes) ?  "": "button-reservation"}}" id="chair-24" data-id="chair-24"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
                     </div>
+            
+                
                 </div>
-                <div class="row row-not-member mt-3 mb-4 d-none">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="fullname">Fullname</label>
-                            <input type="text" class="form-control" id="fullname" name="fullname" value="{{old('fullname')}}" placeholder="Input your name...">
-                            @error('fullname')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="username">Username</label>
-                            <input type="text" class="form-control" id="username" name="username" value="{{old('username')}}" placeholder="Input you username...">
-                            @error('username')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" value="{{old('email')}}" placeholder="Input your email...">
-                            @error('email')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-md-12 mt-3">
-                        <label for="package_member">Package Member</label>
-                        <select class="form-control mt-2 mb-3" id="package_member" name="package_member">
-                            @forelse ($category_members as $category_member)
-                                <option value="{{$category_member->id}}">{{$category_member->name}}</option>
-                            @empty
-                                <option value="">Package Not Found</option>
-                            @endforelse
-                        </select>
-                    </div>
-                </div>   
-                <div class="row mb-4">
-                    <div class="col-md-1 door-reservation align-items-center justify-content-center d-flex" style="height: 100px; background-color:black">
-                        <h3 class="text-white font-weight-bold" style="transform: rotate(90deg)">Door</h2>
-                    </div>
-                    <div class="col-md-10" id="reservation-chairs">
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <div class="text-center">
-                                    <label class="{{in_array('chair-1', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-1" style="border-radius: 3px">
-                                        <span class="p-2 {{in_array('chair-1', $seat_codes) ?  "": "button-reservation"}}" id="chair-1" data-id="chair-1"></span>
-                                    </label>
-                                    <label class="{{in_array('chair-2', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-2" style="border-radius: 3px">
-                                        <span class="p-2 {{in_array('chair-2', $seat_codes) ?  "": "button-reservation"}}" id="chair-2" data-id="chair-2"></span>
-                                    </label>
-                                </div>
-                                
-                                <div class="table-reservation">
-                                    <p class="text-white font-weight-bold mt-3"></p> 
-                                </div>
-                                
-                                <div class="text-center">
-                                    <label class="{{in_array('chair-3', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-3" style="border-radius: 3px">
-                                        <span class="p-2 {{in_array('chair-3', $seat_codes) ?  "": "button-reservation"}}" id="chair-3" data-id="chair-3"></span>
-                                    </label>
-                                    <label class="{{in_array('chair-4', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-4" style="border-radius: 3px">
-                                        <span class="p-2 {{in_array('chair-4', $seat_codes) ?  "": "button-reservation"}}" id="chair-4" data-id="chair-4"></span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="text-center">
-                                    <label class="{{in_array('chair-5', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-5" style="border-radius: 3px">
-                                        <span class="p-2 {{in_array('chair-5', $seat_codes) ?  "": "button-reservation"}}" id="chair-5" data-id="chair-5"></span>
-                                    </label>
-                                    <label class="{{in_array('chair-6', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-6" style="border-radius: 3px">
-                                        <span class="p-2 {{in_array('chair-6', $seat_codes) ?  "": "button-reservation"}}" id="chair-6" data-id="chair-6"></span>
-                                    </label>
-                                </div>
-                                
-                                <div class="table-reservation">
-                                    <p class="text-white font-weight-bold mt-3"></p> 
-                                </div>
-                                
-                                <div class="text-center">
-                                    <label class="{{in_array('chair-7', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-7" style="border-radius: 3px">
-                                        <span class="p-2 {{in_array('chair-7', $seat_codes) ?  "": "button-reservation"}}" id="chair-7" data-id="chair-7"></span>
-                                    </label>
-                                    <label class="{{in_array('chair-8', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-8" style="border-radius: 3px">
-                                        <span class="p-2 {{in_array('chair-8', $seat_codes) ?  "": "button-reservation"}}" id="chair-8" data-id="chair-8"></span>
-                                    </label>
-                                </div>
-                            </div>
-                            
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <div class="text-center">
-                                    <label class="{{in_array('chair-9', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-9" style="border-radius: 3px">
-                                        <span class="p-2 {{in_array('chair-9', $seat_codes) ?  "": "button-reservation"}}" id="chair-9" data-id="chair-9"></span>
-                                    </label>
-                                    <label class="{{in_array('chair-10', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-10" style="border-radius: 3px">
-                                        <span class="p-2 {{in_array('chair-10', $seat_codes) ?  "": "button-reservation"}}" id="chair-10" data-id="chair-10"></span>
-                                    </label>
-                                </div>
-                                
-                                <div class="table-reservation">
-                                    <p class="text-white font-weight-bold mt-3"></p> 
-                                </div>
-                                
-                                <div class="text-center">
-                                    <label class="{{in_array('chair-11', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-11" style="border-radius: 3px">
-                                        <span class="p-2 {{in_array('chair-11', $seat_codes) ?  "": "button-reservation"}}" id="chair-11" data-id="chair-11"></span>
-                                    </label>
-                                    <label class="{{in_array('chair-12', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-12" style="border-radius: 3px">
-                                        <span class="p-2 {{in_array('chair-12', $seat_codes) ?  "": "button-reservation"}}" id="chair-12" data-id="chair-12"></span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="text-center">
-                                    <label class="{{in_array('chair-13', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-13" style="border-radius: 3px">
-                                        <span class="p-2 {{in_array('chair-13', $seat_codes) ?  "": "button-reservation"}}" id="chair-13" data-id="chair-13"></span>
-                                    </label>
-                                    <label class="{{in_array('chair-14', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-14" style="border-radius: 3px">
-                                        <span class="p-2 {{in_array('chair-14', $seat_codes) ?  "": "button-reservation"}}" id="chair-14" data-id="chair-14"></span>
-                                    </label>
-                                </div>
-                                
-                                <div class="table-reservation">
-                                    <p class="text-white font-weight-bold mt-3"></p> 
-                                </div>
-                                
-                                <div class="text-center">
-                                    <label class="{{in_array('chair-15', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-15" style="border-radius: 3px">
-                                        <span class="p-2 {{in_array('chair-15', $seat_codes) ?  "": "button-reservation"}}" id="chair-15" data-id="chair-15"></span>
-                                    </label>
-                                    <label class="{{in_array('chair-16', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-16" style="border-radius: 3px">
-                                        <span class="p-2 {{in_array('chair-16', $seat_codes) ?  "": "button-reservation"}}" id="chair-16" data-id="chair-16"></span>
-                                    </label>
-                                </div>
-                            </div>
-                            
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="text-center">
-                                    <label class="{{in_array('chair-17', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-17" style="border-radius: 3px">
-                                        <span class="p-2 {{in_array('chair-17', $seat_codes) ?  "": "button-reservation"}}" id="chair-17" data-id="chair-17"></span>
-                                    </label>
-                                    <label class="{{in_array('chair-18', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-18" style="border-radius: 3px">
-                                        <span class="p-2 {{in_array('chair-18', $seat_codes) ?  "": "button-reservation"}}" id="chair-18" data-id="chair-18"></span>
-                                    </label>
-                                </div>
-                                
-                                <div class="table-reservation">
-                                    <p class="text-white font-weight-bold mt-3"></p> 
-                                </div>
-                                
-                                <div class="text-center">
-                                    <label class="{{in_array('chair-19', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-19" style="border-radius: 3px">
-                                        <span class="p-2 {{in_array('chair-19', $seat_codes) ?  "": "button-reservation"}}" id="chair-19" data-id="chair-19"></span>
-                                    </label>
-                                    <label class="{{in_array('chair-20', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-20" style="border-radius: 3px">
-                                        <span class="p-2 {{in_array('chair-20', $seat_codes) ?  "": "button-reservation"}}" id="chair-20" data-id="chair-20"></span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="text-center">
-                                    <label class="{{in_array('chair-21', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-21" style="border-radius: 3px">
-                                        <span class="p-2 {{in_array('chair-21', $seat_codes) ?  "": "button-reservation"}}" id="chair-21" data-id="chair-21"></span>
-                                    </label>
-                                    <label class="{{in_array('chair-22', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-22" style="border-radius: 3px">
-                                        <span class="p-2 {{in_array('chair-22', $seat_codes) ?  "": "button-reservation"}}" id="chair-22" data-id="chair-22"></span>
-                                    </label>
-                                </div>
-                                
-                                <div class="table-reservation">
-                                    <p class="text-white font-weight-bold mt-3"></p> 
-                                </div>
-                                
-                                <div class="text-center">
-                                    <label class="{{in_array('chair-23', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-23" style="border-radius: 3px">
-                                        <span class="p-2 {{in_array('chair-23', $seat_codes) ?  "": "button-reservation"}}" id="chair-23" data-id="chair-23"></span>
-                                    </label>
-                                    <label class="{{in_array('chair-24', $seat_codes) ?  "checkbox-button-reserved": "checkbox-button-available"}} shadow btn-chair-24" style="border-radius: 3px">
-                                        <span class="p-2 {{in_array('chair-24', $seat_codes) ?  "": "button-reservation"}}" id="chair-24" data-id="chair-24"></span>
-                                    </label>
-                                </div>
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>
-         
-               
             </div>
-        </div>
-        <div class="text-right mb-4">
-            <button type="button" class="btn btn-success btn-save-reservation shadow">BOOKING</button>
-        </div>
+            <div class="text-right mb-4">
+                <button type="submit" class="btn btn-success btn-save-reservation shadow">BOOKING</button>
+            </div>
+        </form>
     </div>
     <div class="modal" id="modal-reservation" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -314,6 +319,7 @@
 
             $('#member_name').on('select2:select', function (e) {
                 const data = e.params.data
+               
                 $.ajax({
                     url: "{{route('member.checkdata')}}",
                     data: {
@@ -329,6 +335,7 @@
                                 package_day = res.data.package_range_day
                                 $('.package-member').addClass('d-none')
                             }
+                            $('#package_member').val('')
                         }else {
                             Swal.fire('Oops',res.message,'info');
                         }
@@ -351,13 +358,18 @@
                     
                 }
                 $('#member_name').trigger('change').val('')
-                $('#package_member').val(2)
+                $('#package_member').val('')
                 $('#fullname').val('')
                 $('#username').val('')
                 $('#email').val('')
             })
 
             $(document).on('change','#package_member', function() {
+                package_day = $(this).val()
+                console.log(package_day);
+            })
+
+            $(document).on('change','#package_not_member', function() {
                 package_day = $(this).val()
                 console.log(package_day);
             })
@@ -536,40 +548,68 @@
                 const chairId = $(this).data('id')
                 const member = $('#member_name').val();
                 const categoryMember = $('input[type=radio]:checked').val()
-
-                if(member == '' && categoryMember == 1) {
+                
+                if(member == '' && categoryMember == 1 ) {
                     Swal.fire('Oops','Please select member before selected chair','info');
                     return false
                 }
-                if(package_day == undefined || package_day == 1 || package_day == 2) { // TYPE HARIAN FOR MEMBER
-                    if(arrChair.includes(chairId)) {
+                
+                if(arrChair.includes(chairId)) {
                         $(`.btn-${chairId}`).removeClass('checkbox-button-reserved')
                         $(`.btn-${chairId}`).addClass('checkbox-button-available')
                         let index = arrChair.indexOf(chairId)
                         arrChair.splice(index, 1)
-                    }else {
+                }else {
+                    if(arrChair.length == 0) {
                         $(`.btn-${chairId}`).addClass('checkbox-button-reserved')
                         $(`.btn-${chairId}`).removeClass('checkbox-button-available')
                         arrChair.push(chairId)
-                    }
-                }else {
-                    if(arrChair.includes(chairId)) {
-                        $(`.btn-${chairId}`).removeClass('checkbox-button-reserved')
-                        $(`.btn-${chairId}`).addClass('checkbox-button-available')
-                        let index = arrChair.indexOf(chairId)
-                        arrChair.splice(index, 1)
                     }else {
-                        if(arrChair.length == 0) {
-                            $(`.btn-${chairId}`).addClass('checkbox-button-reserved')
-                            $(`.btn-${chairId}`).removeClass('checkbox-button-available')
-                            arrChair.push(chairId)
-                        }else {
-                            Swal.fire('Oops','Cant select chair more than one','info');
-                        }
+                        Swal.fire('Oops','Cant select chair more than one','info');
                     }
-                   
                 }
                 console.log(arrChair);
+            })
+
+            $('#formBooking').on('submit', function(e) {
+                e.preventDefault();
+                let url = '{{route("seat.order-summary", ":id")}}'
+
+                if(arrChair.length == 0) {
+                    Swal.fire('Oops','Please select chair','info');
+                    return false
+                }
+
+                let form        = $(this).serializeArray()
+               
+                form.push({
+                    "name": "arrChair",
+                    "value": arrChair,
+                })
+                
+                $.ajax({
+                    url: "{{route('fdseat.savebooking')}}",
+                    type: "POST",
+                    data:form,
+                    beforeSend: function() {
+                        $('.btn-save-reservation').prop('disabled', true)
+                    },
+                    success: function(res) {
+                       
+                        if(res.code == 200) {
+                            url = url.replace(':id', res.data.id)
+                            window.location.href = url
+                        }else {
+                            Swal.fire('Oops',res.message,'info');
+                        }
+                       
+                        $('.btn-save-reservation').prop('disabled', false)
+                    },
+                    err: function(err) {
+                        $('.btn-save-reservation').prop('disabled', false)
+                        Swal.fire('Oops',err.responseJSON.message,'info');
+                    }
+                })
             })
         })
     </script>
