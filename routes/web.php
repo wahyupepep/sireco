@@ -47,6 +47,7 @@ Route::group([
         });
         Route::group(['prefix' => 'fdseat', 'as' => 'fdseat.'], function () {
                 Route::get('/', [FdseatController::class, 'index'])->name('index');
+                Route::post('/save-booking', [FdseatController::class, 'saveBooking'])->name('savebooking');
         });
         Route::group(['prefix' => 'seat', 'as' => 'seat.'], function () {
                 Route::get('/', [SeatController::class, 'index'])->name('index');
