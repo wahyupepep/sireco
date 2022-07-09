@@ -69,7 +69,7 @@
                   @endif
                     @csrf
                     <div class="form-group">
-                      <input type="email" class="form-control form-control-lg @error('email') is-invalid @enderror" id="email" name="email" placeholder="Email/username" required>
+                      <input type="text" class="form-control form-control-lg @error('email') is-invalid @enderror" id="email" name="email" placeholder="Email/username" required>
                       @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
