@@ -6,6 +6,8 @@ use App\Models\CategoryMember;
 use App\Models\Reservation;
 use App\Models\User;
 use Illuminate\Http\Request;
+use DataTables;
+use Illuminate\Support\Facades\Crypt;
 
 class MemberController extends Controller
 {
@@ -14,8 +16,39 @@ class MemberController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->ajax()) {
+            $members = User::select('id', 'fullname', 'email', 'industry_name', 'package_id')->with('package:id,name')
+                ->where(['role' => 3, 'status' => '1'])
+                ->get();
+
+            return DataTables::of($members)
+                ->addIndexColumn()
+
+                ->addColumn('package', function ($row) {
+                    return !is_null($row->package) ? $row->package->name : '-';
+                })
+
+                ->addColumn('email_member', function ($row) {
+                    return $row->email ?? '-';
+                })
+                ->addColumn('industry_name', function ($row) {
+                    return $row->industry_name ?? '-';
+                })
+
+                ->addColumn('action', function ($row) {
+                    $btn = '<a href="' . route('member.detail', Crypt::encryptString($row->id)) . '" class="btn btn-info btn-sm"><i class="mdi mdi-eye"></i></a>';
+                    return $btn;
+                })
+
+                ->rawColumns(['package', 'action', 'email_member', 'industry_name'])
+
+                ->make(true);
+        }
+
+
+
         return view('content-dashboard.members.index');
     }
 
@@ -28,6 +61,23 @@ class MemberController extends Controller
             ])->limit(10)->get();
 
         return json_encode($member);
+    }
+
+    public function detail($id)
+    {
+        $dec_id = Crypt::decryptString($id);
+        $member = User::with('package:id,name')->where([
+            'role' => 3,
+            'status' => '1',
+            'id' => $dec_id
+        ])->first();
+
+        // return response()->json($member);
+        if (empty($member)) {
+            abort(404);
+        }
+
+        return view('content-dashboard.members.detail', compact('member'));
     }
 
     public function memberCheckData(Request $request)
@@ -78,71 +128,5 @@ class MemberController extends Controller
                 'message' => $th->getMessage() . " on the line " . $th->getLine()
             ], 500);
         }
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }
