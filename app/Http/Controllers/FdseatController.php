@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CategoryMember;
 use App\Models\HistoryTransaction;
+use App\Models\Notification;
 use App\Models\Reservation;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -197,6 +198,19 @@ class FdseatController extends Controller
                         'discount' => $discount,
                     ]);
                 }
+            }
+
+            // GET DATA USER WITH ROLE SUPER ADMIN AND SPACE MANAGER
+            $users = User::select('id')->whereIn('role', [1, 2])->get();
+
+            foreach ($users as $user) {
+                Notification::create([
+                    'text' => 'Order in with invoice ' .  $reservation->number_invoice,
+                    'user_id' => $user->id,
+                    'date' => date('Y-m-d'),
+                    'reservation_id' => $reservation->id,
+                    'read' => 0
+                ]);
             }
 
             DB::commit();

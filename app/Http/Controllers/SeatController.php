@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CategoryMember;
 use App\Models\HistoryTransaction;
+use App\Models\Notification;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -171,6 +172,20 @@ class SeatController extends Controller
                 'discount' => $discount,
             ]);
 
+            // GET DATA USER WITH ROLE SUPER ADMIN AND SPACE MANAGER
+            $users = User::select('id')->whereIn('role', [1, 2])->get();
+
+            foreach ($users as $user) {
+                Notification::create([
+                    'text' => 'Order in with invoice ' .  $reservation->number_invoice,
+                    'user_id' => $user->id,
+                    'date' => date('Y-m-d'),
+                    'reservation_id' => $reservation->id,
+                    'read' => 0
+                ]);
+            }
+
+
             if ($reservation) {
                 $id = Crypt::encryptString($reservation->id);
                 DB::commit();
@@ -245,6 +260,7 @@ class SeatController extends Controller
             ->whereNotNull('payment_file')
             ->whereNotNull('user_id')
             ->whereDate('order_date', date('Y-m-d'))
+            ->where('member_id', Auth::user()->id)
             ->orderBy('id', 'desc')
             ->get();
 
@@ -253,6 +269,7 @@ class SeatController extends Controller
             ->whereIn('status', [0, 1]) // STATUS DONE
             ->whereNull('user_id')
             ->whereDate('order_date', '>=', date('Y-m-d'))
+            ->where('member_id', Auth::user()->id)
             ->orderBy('id', 'desc')
             ->get();
 
@@ -261,6 +278,7 @@ class SeatController extends Controller
             ->whereNotNull('payment_file')
             ->whereNotNull('user_id')
             ->whereDate('order_date', '<', date('Y-m-d'))
+            ->where('member_id', Auth::user()->id)
             ->orderBy('id', 'desc')
             ->get();
 
@@ -271,6 +289,12 @@ class SeatController extends Controller
     {
         $dec_id = Crypt::decryptString($id);
         $reservation = Reservation::findOrFail($dec_id);
+
+        if (!is_null($reservation->notification_admin) || $reservation->notification_admin != '') {
+            if ($reservation->notification_admin->read == 0) {
+                $reservation->notification_admin->update(['read' => 1]);
+            }
+        }
 
         return view('content-dashboard.seats.detail_order', compact('reservation'));
     }
