@@ -16,48 +16,56 @@
                     </div>
                     <div class="col-md-8">
                         <table class="table">
-                              <tr>
+                            <tr>
                                 <td class="font-weight-bold">Name</td>
                                 <td>:</td>
-                                <td>Wahyu Febrianto Pepep</td>
+                                <td>{{$reservation->member->fullname}}</td>
                               </tr>
                               <tr>
                                 <td class="font-weight-bold">Date</td>
                                 <td>:</td>
-                                <td>27 Juni 2022</td>
+                                <td>{{date('d M y', strtotime($reservation->order_date))}}</td>
                               </tr>
                               <tr>
                                 <td class="font-weight-bold">Seats</td>
                                 <td>:</td>
-                                <td>A1</td>
+                                <td>{{strtoupper($reservation->seat_code)}}</td>
                               </tr>
                               <tr>
-                                <td class="font-weight-bold">Duration</td>
+                                <td class="font-weight-bold">Package</td>
                                 <td>:</td>
-                                <td>2 Days</td>
+                                <td>{{$reservation->member->package->name}} ({{$reservation->member->package->day}}x)</td>
                               </tr>
                               <tr>
                                 <td class="font-weight-bold">Price</td>
                                 <td>:</td>
-                                <td>IDR 120.000</td>
+                                <td>{{"IDR " . number_format($reservation->history_transaction->price,0,',','.')}}</td>
                               </tr>
                               <tr>
                                 <td class="font-weight-bold">Discount</td>
                                 <td>:</td>
-                                <td>-</td>
+                                <td>{{$reservation->history_transaction->discount == 0 ? '-' : $reservation->history_transaction->discount }}</td>
                               </tr>
                               <tr>
+                                 @php
+                                    $total = $reservation->history_transaction->price - ($reservation->history_transaction->discount ?? 0);
+                                @endphp
                                 <td class="font-weight-bold" style="color:green; font-size: 20px">Total</td>
                                 <td>:</td>
-                                <td style="color:green; font-size: 20px" class="font-weight-bold">IDR 120.000</td>
+                                <td style="color:green; font-size: 20px" class="font-weight-bold">{{"IDR " . number_format($total,0,',','.')}}</td>
                               </tr>
                         </table>
                         <hr>
                         <div class="terms-condtions">
                             <h6 class="font-weight-bold ml-2">Payment Proof</h6>
                             <div class="detail-payment ml-2">
-                                <img src="{{asset('assets/images/example_payment_proof.jpg')}}" alt="example-proof-payment" width="150" height="150">
-                                <button type="button" class="btn btn-success btn-lg font-weight-bold shadow btn-verify ml-3">Verified</button>
+                                @if (!is_null($reservation->payment_file))
+                                    <img src="{{asset($reservation->payment_file)}}" alt="example-proof-payment" width="150" height="150">
+                                    <button type="button" class="btn btn-success btn-lg font-weight-bold shadow btn-verify ml-3">Verified</button>
+                                @else
+                                    <img src="{{asset('assets/images/not-found.png')}}" alt="example-proof-payment" width="200" height="auto" class="d-block mx-auto"> 
+                                    <p class="font-weight-bold text-center">proof of payment has not been uploaded</p>
+                                @endif 
                             </div>
                         </div>
                     </div>
