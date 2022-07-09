@@ -91,8 +91,11 @@
         </li>
        
         <li class="nav-item nav-logout d-none d-lg-block">
-            <a id="logout-form" class="nav-link" href="#">
+            <a id="logout-form" class="nav-link" href="{{ route('manage.logout') }}">
               <i class="mdi mdi-power"></i>
+              <form id="logout-form" action="{{ route('manage.logout') }}" method="POST" class="d-none">
+                @csrf
+              </form>
             </a>
         </li>
       </ul>

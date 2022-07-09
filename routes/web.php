@@ -24,6 +24,7 @@ Route::post('/manage/login', [LoginController::class, 'checkLogin'])->name('mana
 Route::get('manage/registration', [RegistrationController::class, 'registration'])->name('manage.registration');
 Route::post('manage/registration', [RegistrationController::class, 'inputRegistration'])->name('manage.inputregistration');
 Route::get('verified/{id}', [RegistrationController::class, 'emailVerified'])->name('email.verified');
+// Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 // Auth::routes();
 
 Route::group([
