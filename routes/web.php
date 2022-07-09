@@ -2,7 +2,7 @@
 
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{CategoryMemberController, HomeController, RoleController, SettingController, UserController, SeatController, PaymentController, SaleController, MemberController, VerificationController, FdseatController, PaymentMethodController, RoomController, DiscountController, RegistrationController};
+use App\Http\Controllers\{CategoryMemberController, HomeController, RoleController, SettingController, UserController, SeatController, PaymentController, SaleController, MemberController, VerificationController, FdseatController, PaymentMethodController, RoomController, DiscountController, NotificationController, RegistrationController};
 use App\Http\Controllers\Auth\LoginController;
 
 /*
@@ -74,6 +74,7 @@ Route::group([
         });
         Route::group(['prefix' => 'verification', 'as' => 'verification.'], function () {
                 Route::get('/', [VerificationController::class, 'index'])->name('index');
+                Route::get('/complete', [VerificationController::class, 'complete'])->name('complete');
                 Route::get('/detail-order/{id}', [VerificationController::class, 'detailOrder'])->name('detail-order');
                 Route::get('verified/detail-order/{id}', [VerificationController::class, 'verifiedDetailOrder'])->name('verified-order');
         });
@@ -137,4 +138,6 @@ Route::group([
                 Route::put('/update/{id}', [RoleController::class, 'update'])->name('update');
                 Route::delete('/delete', [RoleController::class, 'delete'])->name('delete');
         });
+
+        Route::get('/notification', [NotificationController::class, 'getData'])->name('notification');
 });
