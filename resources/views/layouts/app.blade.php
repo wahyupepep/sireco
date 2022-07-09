@@ -108,9 +108,11 @@
             var file = $(this).parent().parent().parent().find('.file-upload-default');
             file.trigger('click');
           });
+
         $('.file-upload-default').on('change', function() {
           $(this).parent().find('.form-control').val($(this).val().replace(/C:\\fakepath\\/i, ''));
         });
+
         $('#logout-form').on('click',function(e) {
           e.preventDefault()
           
@@ -136,7 +138,52 @@
             }
           })
         })
+        setInterval(() => {
+          $('.list-notification').html(getNotification())
+        }, 5000);
+        
       })
+
+      function getNotification() {
+        let dataNotification = '';
+        let userId = "{{Auth::user()->id}}"
+        $.ajax({
+          url: "{{route('notification')}}",
+          type: "GET",
+          async: false,
+          success: function(res) {
+              if(res.code == 200) {
+                  res.data.notifications.forEach(el => {
+                    // id = id.replace('reservation_id', el.reservation_id)
+                    let urlAdmin = "{{route('verification.detail-order', ':id')}}"
+                    let urlMember = "{{route('seat.detail-order', ':id')}}"
+                    urlAdmin = urlAdmin.replace(':id', el.reservation_id)
+                    urlMember = urlMember.replace(':id', el.reservation_id)
+                    dataNotification += `
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item preview-item" href=${el.is_member ? urlMember : urlAdmin}>
+                        <div class="preview-thumbnail">
+                          <div class="preview-icon bg-success">
+                            <i class="mdi mdi-cart-plus"></i>
+                          </div>
+                        </div>
+                        <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                          <h6 class="preview-subject font-weight-normal mb-1 font-weight-bold">
+                            ${userId == 1 ? 'New Booking' : 'Verified'}  
+                          </h6>
+                          <p class="text-gray ellipsis mb-0 text-muted" style="font-size: 13px">${el.text}</p>
+                        </div>
+                      </a>
+                    `
+                  })
+              }
+          },
+          error: function(err) {
+              Swal.fire('Oops',err.responseJSON.message,'info');
+          }
+        }); 
+        return dataNotification;
+      }
     </script>
     @yield('script')
     <!-- End custom js for this page -->
