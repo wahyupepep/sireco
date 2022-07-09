@@ -121,11 +121,11 @@
      
   
       
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a href="#" class="nav-link ">
           <span class="menu-title">Log Out</span>
           <i class="mdi mdi-logout-variant
-          menu-icon"></i>
+          menu-icon"></i> --}}
         </a>
       </li>
     </ul>
