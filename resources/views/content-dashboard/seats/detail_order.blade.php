@@ -53,15 +53,22 @@
                                 $total = $reservation->history_transaction->price - ($reservation->history_transaction->discount ?? 0);
                             @endphp
                             
-                            @if ($total > 0)
-                              <td class="font-weight-bold" style="color:red; font-size: 20px">Total</td>
-                              <td>:</td>
-                              <td style="color:red; font-size: 20px" class="font-weight-bold">{{"IDR " . number_format($total,0,',','.')}}</td>
+                            @if ($reservation->status == 2)
+                            <td class="font-weight-bold" style="color:green; font-size: 20px">Total</td>
+                            <td>:</td>
+                            <td style="color:green; font-size: 20px" class="font-weight-bold">{{"IDR " . number_format($total,0,',','.')}}  <span class="badge badge-success ml-3 font-weight-bold">PAID</span></td>  
                             @else
-                              <td class="font-weight-bold" style="color:green; font-size: 20px">Total</td>
-                              <td>:</td>
-                              <td style="color:green; font-size: 20px" class="font-weight-bold">{{"IDR " . number_format($total,0,',','.')}}  <span class="badge badge-success ml-3 font-weight-bold">PAID</span></td>  
+                               @if ($total > 0)
+                                <td class="font-weight-bold" style="color:red; font-size: 20px">Total</td>
+                                <td>:</td>
+                                <td style="color:red; font-size: 20px" class="font-weight-bold">{{"IDR " . number_format($total,0,',','.')}}</td>
+                              @else
+                                <td class="font-weight-bold" style="color:green; font-size: 20px">Total</td>
+                                <td>:</td>
+                                <td style="color:green; font-size: 20px" class="font-weight-bold">{{"IDR " . number_format($total,0,',','.')}}  <span class="badge badge-success ml-3 font-weight-bold">PAID</span></td>  
+                              @endif
                             @endif
+                          
                             
                           </tr>
                           <tr>
