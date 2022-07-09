@@ -17,10 +17,7 @@ class UserController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:user-list|user-create|user-edit|user-delete', ['only' => ['index', 'show']]);
-        $this->middleware('permission:user-create', ['only' => ['add', 'store']]);
-        $this->middleware('permission:user-edit', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:user-delete', ['only' => ['delete']]);
+        $this->middleware('permission:master-list');
     }
 
     public function index(Request $request)
@@ -39,7 +36,8 @@ class UserController extends Controller
                     return $row->email;
                 })
                 ->addColumn('role', function ($row) {
-                    return $row->role == 1 ? '<span class="badge btn-danger-material">Super Admin</span>' : '<span class="badge btn-blue-material">Admin</span>';
+                    return $row->getRoleNames()[0];
+                    // return $row->role == 1 ? '<span class="badge btn-danger-material">Super Admin</span>' : '<span class="badge btn-blue-material">Admin</span>';
                 })
                 ->addColumn('action', function ($row) {
                     $btn = '<a href="' . route('user.edit', Crypt::encryptString($row->id)) . '" class="edit-user btn btn-warning-material btn-sm"><i class="mdi mdi-lead-pencil"></i></a>';
@@ -90,11 +88,11 @@ class UserController extends Controller
 
             $user->assignRole($request->role);
 
-            $agent = new Agent();
+            // $agent = new Agent();
 
-            $data = [$request->ip(), $agent->device(), $agent->browser(), 'user', 'insert'];
+            // $data = [$request->ip(), $agent->device(), $agent->browser(), 'user', 'insert'];
 
-            log_activity($data); // simpan log activity
+            // log_activity($data); // simpan log activity
 
             DB::commit();
 
@@ -146,11 +144,7 @@ class UserController extends Controller
                 'role' => $request->role
             ]);
 
-            $agent = new Agent();
 
-            $data = [$request->ip(), $agent->device(), $agent->browser(), 'user', 'update'];
-
-            log_activity($data);
             return redirect()->route('user.index')->with('status', 'Data user berhasil diperbarui');
         } catch (\Throwable $th) {
             return redirect()->route('user.index', ['id' => $id])->withErrors($th->getMessage())->withInput();
@@ -174,11 +168,6 @@ class UserController extends Controller
 
             $userExistOrNot->delete();
 
-            $agent = new Agent();
-
-            $data = [$request->ip(), $agent->device(), $agent->browser(), 'user', 'delete'];
-
-            log_activity($data);
 
             return response()->json([
                 'code' => 200,

@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Validator;
 
 class CategoryMemberController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:master-list');
+    }
+
     public function index(Request $request)
     {
         if ($request->ajax()) {

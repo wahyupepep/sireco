@@ -20,7 +20,7 @@ class MemberController extends Controller
     {
         if ($request->ajax()) {
             $members = User::select('id', 'fullname', 'email', 'industry_name', 'package_id')->with('package:id,name')
-                ->where(['role' => 3, 'status' => '1'])
+                ->where(['role' => 4, 'status' => '0'])
                 ->get();
 
             return DataTables::of($members)
@@ -67,8 +67,8 @@ class MemberController extends Controller
     {
         $dec_id = Crypt::decryptString($id);
         $member = User::with('package:id,name')->where([
-            'role' => 3,
-            'status' => '1',
+            'role' => 4,
+            'status' => '0',
             'id' => $dec_id
         ])->first();
 

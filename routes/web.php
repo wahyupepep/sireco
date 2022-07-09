@@ -35,16 +35,16 @@ Route::group([
 ], function () {
         Route::get('home', [HomeController::class, 'index'])->name('home');
         Route::post('/manage/logout', [LoginController::class, 'logout'])->name('manage.logout');
-        Route::group(['prefix' => 'category', 'as' => 'category.'], function () {
-                Route::get('/', [CategoryController::class, 'index'])->name('index');
-                Route::get('add', [CategoryController::class, 'add'])->name('add');
-                Route::post('store', [CategoryController::class, 'store'])->name('store');
-                Route::post('store/image', [CategoryController::class, 'storeImage'])->name('store-image');
-                Route::get('edit/{id}', [CategoryController::class, 'edit'])->name('edit');
-                Route::put('update/{id}', [CategoryController::class, 'update'])->name('update');
-                Route::post('delete/image', [CategoryController::class, 'deleteImage'])->name('delete-image');
-                Route::post('delete', [CategoryController::class, 'delete'])->name('delete');
-        });
+        // Route::group(['prefix' => 'category', 'as' => 'category.'], function () {
+        //         Route::get('/', [CategoryController::class, 'index'])->name('index');
+        //         Route::get('add', [CategoryController::class, 'add'])->name('add');
+        //         Route::post('store', [CategoryController::class, 'store'])->name('store');
+        //         Route::post('store/image', [CategoryController::class, 'storeImage'])->name('store-image');
+        //         Route::get('edit/{id}', [CategoryController::class, 'edit'])->name('edit');
+        //         Route::put('update/{id}', [CategoryController::class, 'update'])->name('update');
+        //         Route::post('delete/image', [CategoryController::class, 'deleteImage'])->name('delete-image');
+        //         Route::post('delete', [CategoryController::class, 'delete'])->name('delete');
+        // });
         Route::group(['prefix' => 'fdseat', 'as' => 'fdseat.'], function () {
                 Route::get('/', [FdseatController::class, 'index'])->name('index');
                 Route::post('/save-booking', [FdseatController::class, 'saveBooking'])->name('savebooking');

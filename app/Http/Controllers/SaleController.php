@@ -14,6 +14,11 @@ class SaleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    function __construct()
+    {
+        $this->middleware('permission:sales|sales-income');
+    }
+
     public function index(Request $request)
     {
         if ($request->ajax()) {
