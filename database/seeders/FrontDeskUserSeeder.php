@@ -2,12 +2,12 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\User;
+use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
-class CreateAdminUserSeeder extends Seeder
+class FrontDeskUserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,16 +17,16 @@ class CreateAdminUserSeeder extends Seeder
     public function run()
     {
         $user = User::create([
-            'fullname' => 'Super Admin',
-            'name' => 'superadmin',
-            'email' => 'superadmin@hetero.com',
+            'fullname' => 'Front Desk',
+            'name' => 'front desk',
+            'email' => 'frontdesk@hetero.com',
             'password' => bcrypt('password'),
             'email_verified_at' => date('Y-m-d H:i:s'),
-            'role' => 1,
+            'role' => 3,
             'status' => 1
         ]);
 
-        $role = Role::create(['name' => 'super admin']);
+        $role = Role::where(['name' => 'front desk'])->first();
 
         $permissions = Permission::pluck('id', 'id')->all();
 

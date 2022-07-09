@@ -11,6 +11,14 @@ use Illuminate\Support\Facades\Validator;
 
 class RoomController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:master-list');
+        // $this->middleware('permission:user-create', ['only' => ['add', 'store']]);
+        // $this->middleware('permission:user-edit', ['only' => ['edit', 'update']]);
+        // $this->middleware('permission:user-delete', ['only' => ['delete']]);
+    }
+
     public function index(Request $request)
     {
         if ($request->ajax()) {

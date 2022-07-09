@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Validator;
 
 class FdseatController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:frontdesk-list|frontdesk-create');
+    }
+
     public function index()
     {
         $category_members = CategoryMember::select('id', 'name')->get();

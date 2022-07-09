@@ -16,10 +16,7 @@ class RoleController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index', 'show']]);
-        $this->middleware('permission:role-create', ['only' => ['add', 'store']]);
-        $this->middleware('permission:role-edit', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:role-delete', ['only' => ['delete']]);
+        $this->middleware('permission:master-list');
     }
 
     public function index(Request $request)
@@ -73,11 +70,6 @@ class RoleController extends Controller
 
             $role->syncPermissions($request->input('permission'));
 
-            $agent = new Agent();
-
-            $data = [$request->ip(), $agent->device(), $agent->browser(), 'role', 'store'];
-
-            log_activity($data); // simpan log activity
 
             DB::commit();
 
@@ -131,12 +123,6 @@ class RoleController extends Controller
 
             $role->syncPermissions($request->input('permission'));
 
-            $agent = new Agent();
-
-            $data = [$request->ip(), $agent->device(), $agent->browser(), 'role', 'update'];
-
-            log_activity($data);
-
             return redirect()->route('role.index')->with('status', 'Data role berhasil diperbarui');
         } catch (\Throwable $th) {
             return redirect()->route('role.edit', ['id' => $id])->withErrors($th->getMessage())->withInput();
@@ -159,12 +145,6 @@ class RoleController extends Controller
             }
 
             $roleIsExists->delete();
-
-            $agent = new Agent();
-
-            $data = [$request->ip(), $agent->device(), $agent->browser(), 'role', 'delete'];
-
-            log_activity($data);
 
             return response()->json([
                 'code' => 200,

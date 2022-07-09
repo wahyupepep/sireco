@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Validator;
 
 class DiscountController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:master-list');
+    }
+
     public function index(Request $request)
     {
         if ($request->ajax()) {
@@ -37,7 +42,7 @@ class DiscountController extends Controller
                     return $btn;
                 })
 
-                ->rawColumns(['name', 'discount', 'start_date', 'valid_date','action'])
+                ->rawColumns(['name', 'discount', 'start_date', 'valid_date', 'action'])
 
                 ->make(true);
         }
@@ -98,7 +103,7 @@ class DiscountController extends Controller
                 return redirect()->route('master.discount.edit', ['id' => $id])->withErrors('Data Category Member Found')->withInput();
             }
 
-            return view('content-dashboard.masters.discounts.edit',compact('id','discount'));
+            return view('content-dashboard.masters.discounts.edit', compact('id', 'discount'));
         } catch (\Throwable $th) {
             return redirect()->route('master.discount.edit', ['id' => $id])->withErrors($th->getMessage() . ' on the line ' . $th->getLine())->withInput();
         }
