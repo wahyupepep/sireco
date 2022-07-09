@@ -161,7 +161,7 @@
                     urlMember = urlMember.replace(':id', el.reservation_id)
                     dataNotification += `
                       <div class="dropdown-divider"></div>
-                      <a class="dropdown-item preview-item" href=${el.is_member ? urlMember : urlAdmin}>
+                      <a class="dropdown-item preview-item" href=${el.is_member ? urlMember : urlAdminP}>
                         <div class="preview-thumbnail">
                           <div class="preview-icon bg-success">
                             <i class="mdi mdi-cart-plus"></i>
