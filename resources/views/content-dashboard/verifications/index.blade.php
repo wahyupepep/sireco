@@ -9,6 +9,10 @@
         .nav-item a{
             color: #ff395b
         }
+
+        .table {
+          width: 100% !important;
+        }
     </style>
     @include('layouts.overview',['text' => 'Payment Verification', 'icon' => 'mdi mdi-view-agenda'])
     <div class="container">
@@ -16,7 +20,7 @@
             <div class="col-md-12">
                 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                     <li class="nav-item">
-                      <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Today</a>
+                      <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">All</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Completed</a>
@@ -26,7 +30,7 @@
             <div class="col-md-12 mb-4">
                 <div class="tab-content" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                        <table class="table table-striped">
+                        <table class="table table-striped data-table-all">
                             <thead>
                               <tr>
                                 <th>No</th>
@@ -37,27 +41,13 @@
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <td class="py-1">
-                                  1
-                                </td>
-                                <td> INV/001/A1/2706022</td>
-                                <td>
-                                    27 June 2022
-                                </td>
-                                <td> A1</td>
-                                <td>
-                                    <button type="button" class="btn btn-gradient-info btn-icon btn-detail-order">
-                                        <i class="mdi mdi-eye"></i>
-                                    </button>
-                                </td>
-                              </tr>
+                              
                               
                             </tbody>
                           </table>
                     </div>
                     <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-                        <table class="table table-striped">
+                        <table class="table table-striped data-table-complete">
                             <thead>
                               <tr>
                                 <th>No</th>
@@ -68,21 +58,7 @@
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <td class="py-1">
-                                  1
-                                </td>
-                                <td> INV/001/A1/2706022</td>
-                                <td>
-                                    27 June 2022
-                                </td>
-                                <td> A1</td>
-                                <td>
-                                    <button type="button" class="btn btn-gradient-secondary btn-icon btn-icon btn-verify">
-                                        <i class="mdi mdi-eye"></i>
-                                    </button>
-                                </td>
-                              </tr>
+                             
                               
                             </tbody>
                           </table>
@@ -97,13 +73,57 @@
 @section('script')
     <script>
         $(document).ready(function() {
+            let table = $('.data-table-all').DataTable({
+
+                processing: true,
+
+                serverSide: true,
+
+                ajax: "{{ route('verification.index') }}",
+
+                columns: [
+
+                    {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                    {data: 'number_invoice', name: 'number_invoice'},
+                    {data: 'date_order', name: 'date_order'},
+                    {data: 'chair_code', name: 'chair_code'},
+                    {data: 'action', name: 'action', orderable: false, searchable: false},
+
+                ]
+
+            });
+            let tableComplete = $('.data-table-complete').DataTable({
+
+                processing: true,
+
+                serverSide: true,
+
+                ajax: "{{ route('verification.complete') }}",
+
+                columns: [
+
+                    {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                    {data: 'number_invoice', name: 'number_invoice'},
+                    {data: 'date_order', name: 'date_order'},
+                    {data: 'chair_code', name: 'chair_code'},
+                    {data: 'action', name: 'action', orderable: false, searchable: false},
+
+                ]
+
+            });
+
             $(document).on('click','.btn-detail-order',function() {
-                window.location.href="{{route('verification.detail-order', ['id' => 1])}}"
+                let url = "{{route('verification.detail-order', ':id')}}"
+                url = url.replace(':id', $(this).data('id'))
+                window.location.href= url
             })
 
             $(document).on('click','.btn-verify', function(){
-                window.location.href = "{{route('verification.verified-order',['id' => 1])}}"
+                let url = "{{route('verification.verified-order', ':id')}}"
+                url = url.replace(':id', $(this).data('id'))
+                window.location.href = url
             })
+
         })
     </script>
 @endsection
