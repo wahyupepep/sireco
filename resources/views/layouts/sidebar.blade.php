@@ -10,7 +10,9 @@
           <div class="nav-profile-text d-flex flex-column">
             <span class="font-weight-bold mb-2">{{Auth::user()->name}}</span>
             <span class="text-secondary text-small">
-              {{Auth::user()->getRoleNames()[0]}}
+              @foreach (Auth::user()->getRoleNames() as $name )
+                  {{$name}}
+              @endforeach
             </span>
           </div>
           <i class="mdi mdi-bookmark-check color-red nav-profile-badge"></i>

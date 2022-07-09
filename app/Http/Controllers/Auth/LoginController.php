@@ -52,7 +52,9 @@ class LoginController extends Controller
             return redirect()->route('manage.login')->with('message', ['status' => 'danger', 'desc' => $validator->errors()->first()]);
         }
 
-        $user = User::where('name', $akun)->orWhere('email', $akun)->first();
+        $user = User::where('name', $akun)->orWhere('email', $akun)
+            ->whereNotNull('email_verified_at')
+            ->first();
         if ($user) {
             if (Hash::check($password, $user->password)) {
                 Auth::login($user);
@@ -62,7 +64,7 @@ class LoginController extends Controller
                 return redirect()->route('manage.login')->with('message', ['status' => 'danger', 'desc' => $desc]);
             }
         } else {
-            $desc = 'Akun yang anda inputkan tidak tersedia.';
+            $desc = 'Akun yang anda inputkan tidak tersedia/silahkan verifikasi email anda terlebih dahulu.';
             return redirect()->route('manage.login')->with('message', ['status' => 'danger', 'desc' => $desc]);
         }
     }

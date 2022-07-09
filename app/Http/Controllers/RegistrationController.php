@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Permission\Models\Role;
 
 class RegistrationController extends Controller
 {
@@ -53,8 +54,10 @@ class RegistrationController extends Controller
                 'name' => $request->username,
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
-                'role' => 3 // Member role
+                'role' => 4 // Member role
             ]);
+
+            $insert_member->assignRole(4);
 
             if ($insert_member) {
                 $details = [
