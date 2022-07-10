@@ -56,8 +56,8 @@ class MemberController extends Controller
     {
         $member = User::where('fullname', 'LIKE', "%{$request->search}%")
             ->where([
-                'role' => 3, // MEMBER
-                'status' => '1' // ACTIVE
+                'role' => 4, // MEMBER
+                'status' => '0' // ACTIVE
             ])->limit(10)->get();
 
         return json_encode($member);
