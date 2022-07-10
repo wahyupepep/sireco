@@ -20,7 +20,7 @@ class MemberController extends Controller
     {
         if ($request->ajax()) {
             $members = User::select('id', 'fullname', 'email', 'industry_name', 'package_id')->with('package:id,name')
-                ->where(['role' => 4, 'status' => '0'])
+                ->where(['role' => 4, 'status' => '1'])
                 ->get();
 
             return DataTables::of($members)
@@ -57,7 +57,7 @@ class MemberController extends Controller
         $member = User::where('fullname', 'LIKE', "%{$request->search}%")
             ->where([
                 'role' => 4, // MEMBER
-                'status' => '0' // ACTIVE
+                'status' => '1' // ACTIVE
             ])->limit(10)->get();
 
         return json_encode($member);
@@ -68,7 +68,7 @@ class MemberController extends Controller
         $dec_id = Crypt::decryptString($id);
         $member = User::with('package:id,name')->where([
             'role' => 4,
-            'status' => '0',
+            'status' => '1',
             'id' => $dec_id
         ])->first();
 
